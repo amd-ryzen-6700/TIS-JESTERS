@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIS Jesters - FLL Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #ffd700;
+        }
+        
+        .mission {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .mission h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .member-header {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .member-name {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .member-role {
+            font-size: 1.2rem;
+            color: #ffd700;
+        }
+        
+        .member-content {
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1a2a6c, #b21f1f);
+            margin: -75px auto 15px;
+            border: 5px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: #ffd700;
+        }
+        
+        .member-bio {
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+        
+        .achievements {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 50px 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .achievements h2 {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+        
+        .achievement-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .achievement-card i {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TIS JESTERS</h1>
+            <p class="tagline">First Lego League Team | Innovation | Excellence | Teamwork</p>
+        </header>
+        
+        <section class="mission">
+            <h2>Our Mission</h2>
+            <p>We are the TIS Jesters, a dynamic First Lego League team dedicated to innovation, creativity, and technical excellence. Through robotics, we learn to solve real-world problems while building lasting friendships and developing essential skills for the future.</p>
+        </section>
+        
+        <section class="team-members">
+            <h2 style="text-align: center; color: #ffd700; margin: 40px 0; font-size: 2.2rem;">Meet Our Team</h2>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-header">
+                        <h3 class="member-name">Kevin Lo</h3>
+                        <p class="member-role">Team Captain & Bot Builder</p>
+                    </div>
+                    <div class="member-content">
+                        <div class="member-photo">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <p class="member-bio">Kevin leads our team with exceptional technical skills in robot construction and programming. As our bot builder, he ensures our robot performs flawlessly in competitions.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-header">
+                        <h3 class="member-name">Aden Murray</h3>
+                        <p class="member-role">Innovation Designer</p>
+                    </div>
+                    <div class="member-content">
+                        <div class="member-photo">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <p class="member-bio">Aden brings creative solutions to complex challenges. As our innovation designer, he develops unique strategies and designs that set us apart from other teams.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-header">
+                        <h3 class="member-name">Liam Watson</h3>
+                        <p class="member-role">Attachments Builder</p>
+                    </div>
+                    <div class="member-content">
+                        <div class="member-photo">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <p class="member-bio">Liam specializes in creating precision attachments for our robot. His engineering skills and attention to detail ensure our robot can complete missions with maximum efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="achievements">
+            <h2>Our Achievements</h2>
+            <div class="achievement-list">
+                <div class="achievement-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Regional Champions</h3>
+                    <p>Winner of the Regional FLL Competition 2023</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <i class="fas fa-medal"></i>
+                    <h3>Innovation Award</h3>
+                    <p>Recognized for outstanding problem-solving approach</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Teamwork Excellence</h3>
+                    <p>Praised for exceptional collaboration and communication</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <h3>TIS Jesters - First Lego League</h3>
+            <p>Building the future one robot at a time</p>
+        </footer>
+    </div>
+</body>
+</html>
+
