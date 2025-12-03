@@ -398,23 +398,37 @@
         }
        
         .member-photo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            background: linear-gradient(135deg, var(--primary-color), var(--orange-primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto 0;
+            border-radius: 50%;
+            overflow: hidden;
             position: relative;
+            border: 4px solid rgba(255, 140, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
+            transition: all 0.3s;
+        }
+       
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+       
+        .team-member:hover .member-photo {
+            border-color: rgba(255, 140, 0, 0.8);
+            box-shadow: 0 0 50px rgba(255, 140, 0, 0.4);
+        }
+       
+        .team-member:hover .member-photo img {
+            transform: scale(1.05);
         }
        
         .member-bio {
             color: var(--text-secondary);
             line-height: 1.6;
+            margin-top: 20px;
         }
        
         /* Robot showcase section */
@@ -795,7 +809,7 @@
                         <h3 class="member-name">Kevin Lo</h3>
                         <p class="member-role">Team Captain & Bot Builder</p>
                         <div class="member-photo">
-                            <i class="fas fa-cogs"></i>
+                            <img src="images/sigma-kevin.png" alt="Kevin Lo - Team Captain">
                         </div>
                         <p class="member-bio">Kevin leads our team with exceptional technical skills in robot construction and programming. As our bot builder, he ensures our robot performs flawlessly in competitions.</p>
                     </div>
@@ -806,7 +820,7 @@
                         <h3 class="member-name">Aden Murray</h3>
                         <p class="member-role">Innovation Designer</p>
                         <div class="member-photo">
-                            <i class="fas fa-lightbulb"></i>
+                            <img src="images/sigma-aden.png" alt="Aden Murray - Innovation Designer">
                         </div>
                         <p class="member-bio">Aden brings creative solutions to complex challenges. As our innovation designer, he develops unique strategies and designs that set us apart from other teams.</p>
                     </div>
@@ -817,7 +831,7 @@
                         <h3 class="member-name">Liam Watson</h3>
                         <p class="member-role">Attachments Builder</p>
                         <div class="member-photo">
-                            <i class="fas fa-tools"></i>
+                            <img src="images/sigma-liam.png" alt="Liam Watson - Attachments Builder">
                         </div>
                         <p class="member-bio">Liam specializes in creating precision attachments for our robot. His engineering skills and attention to detail ensure our robot can complete missions with maximum efficiency.</p>
                     </div>
@@ -969,6 +983,7 @@
                     const elapsed = timestamp - spark.startTime;
                     if (elapsed >= duration) return false;
                     const progress = elapsed / duration;
+                    if (progress > 1) return false;
                     const eased = easeFunc(progress);
                     const distance = eased * sparkRadius * extraScale;
                     const lineLength = sparkSize * (1 - eased);
@@ -1018,7 +1033,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const sparkArea = document.getElementById('spark-area');
             ClickSpark(sparkArea, {
-                sparkColor: '#ffffff',  // Changed to white
+                sparkColor: '#ffffff',
                 sparkCount: 12,
                 sparkRadius: 30,
                 sparkSize: 12,
@@ -1078,10 +1093,10 @@
                 .__click-line {
                     position: absolute;
                     left: 0; top: 0;
-                    width: 8px;              /* thicker line */
-                    height: 20px;            /* line length */
-                    background: white;       /* white color */
-                    border-radius: 8px;      /* rounded ends */
+                    width: 8px;
+                    height: 20px;
+                    background: white;
+                    border-radius: 8px;
                     transform-origin: center bottom;
                     opacity: 1;
                 }
@@ -1098,7 +1113,7 @@
             }
 
             const duration = 400;
-            const numLines = 8;   // 8 white lines
+            const numLines = 8;
             let last = 0;
 
             function makeBurst(x, y) {
