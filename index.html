@@ -431,30 +431,39 @@
             margin-top: 20px;
         }
        
-        /* Robot showcase section */
+        /* Robot showcase section - UPDATED */
         .robot-showcase {
             margin: 60px 0;
             text-align: center;
         }
        
         .robot-image {
-            width: 300px;
+            width: 400px;
             height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
             margin: 0 auto 0;
-            background: rgba(30, 30, 30, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 4px solid rgba(255, 140, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
+            transition: all 0.3s;
         }
        
-        .robot-image i {
-            font-size: 100px;
-            background: linear-gradient(135deg, var(--primary-color), var(--orange-primary), var(--orange-secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .robot-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+       
+        .robot-image:hover {
+            border-color: rgba(255, 140, 0, 0.8);
+            box-shadow: 0 0 50px rgba(255, 140, 0, 0.4);
+            transform: scale(1.02);
+        }
+       
+        .robot-image:hover img {
+            transform: scale(1.05);
         }
        
         .robot-description {
@@ -463,6 +472,7 @@
             color: var(--text-secondary);
             font-size: 1.1rem;
             margin: 0 auto;
+            margin-top: 30px;
         }
        
         .achievements {
@@ -844,8 +854,9 @@
        
         <section id="robot" class="robot-showcase">
             <h2 class="section-title"><span>Our Robot</span></h2>
+            <!-- ROBOT IMAGE SECTION - UPDATED -->
             <div class="robot-image">
-                <i class="fas fa-robot"></i>
+                <img src="images/Robot.png" alt="Dwayne the Box Johnson - TIS Jesters Robot">
             </div>
             <p class="robot-description">
                 Our robot, <span class="orange-glow">"Dwayne the Box Johnson"</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Dwayne the Box Johnson can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds.
