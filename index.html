@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIS Jesters - FLL Team</title>
+    <link rel="icon" href="images/TIS Jesters Logo.png" type="image/png">
+    <link rel="shortcut icon" href="images/TIS Jesters Logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/TIS Jesters Logo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -199,6 +202,7 @@
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
+            cursor: pointer;
         }
        
         .nav-links a::after {
@@ -758,6 +762,20 @@
         .orange-glow {
             text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
         }
+
+        /* Enhanced smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation active state indicator */
+        .nav-links a.active {
+            color: var(--orange-primary);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -783,7 +801,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="#home" class="logo">
                 TIS Jesters
             </a>
             <ul class="nav-links">
@@ -1057,7 +1075,7 @@
             });
         });
 
-        // Smooth scrolling for navigation links
+        // Enhanced smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1067,8 +1085,21 @@
                
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
+                    // Remove active class from all links
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Smooth scroll with enhanced timing
+                    const yOffset = -80;
+                    const elementTop = targetElement.getBoundingClientRect().top;
+                    const offsetTop = elementTop + window.pageYOffset + yOffset;
+                    
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: offsetTop,
                         behavior: 'smooth'
                     });
                 }
@@ -1093,6 +1124,29 @@
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
             }, 500); // Match transition duration
+        });
+
+        // Enhanced navigation active state based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 
