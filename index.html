@@ -442,8 +442,22 @@
             margin-top: 20px;
         }
 
-        /* Fix color consistency for Aden's bio */
+        /* Fix color consistency for all team member bios */
         .team-member:nth-child(1) .member-bio {
+            background: linear-gradient(135deg, rgba(255, 68, 68, 0.05), rgba(255, 140, 0, 0.05));
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 68, 68, 0.2);
+        }
+
+        .team-member:nth-child(2) .member-bio {
+            background: linear-gradient(135deg, rgba(255, 68, 68, 0.05), rgba(255, 140, 0, 0.05));
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 68, 68, 0.2);
+        }
+
+        .team-member:nth-child(3) .member-bio {
             background: linear-gradient(135deg, rgba(255, 68, 68, 0.05), rgba(255, 140, 0, 0.05));
             padding: 20px;
             border-radius: 12px;
@@ -716,6 +730,16 @@
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
+
+        /* Footer box with rounded corners */
+        .footer-box {
+            background: linear-gradient(135deg, rgba(255, 68, 68, 0.05), rgba(255, 140, 0, 0.05));
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 68, 68, 0.2);
+            margin: 0 auto;
+            max-width: 800px;
+        }
        
         @media (max-width: 768px) {
             h1 {
@@ -964,12 +988,14 @@
        
         <footer id="contact">
             <div class="footer-content">
-                <div class="footer-logo">TIS JESTERS</div>
-                <p class="footer-tagline">First Lego League Team</p>
-                <p style="color: var(--text-secondary); margin-bottom: 30px;">Building the future one robot at a time</p>
-               
-                <div class="copyright">
-                    © 2025 TIS Jesters. All rights reserved.
+                <div class="footer-box">
+                    <div class="footer-logo">TIS JESTERS</div>
+                    <p class="footer-tagline">First Lego League Team</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 30px;">Building the future one robot at a time</p>
+                   
+                    <div class="copyright">
+                        © 2025 TIS Jesters. All rights reserved.
+                    </div>
                 </div>
             </div>
         </footer>
