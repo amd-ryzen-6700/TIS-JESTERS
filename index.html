@@ -956,6 +956,38 @@
     </div>
    
     <script>
+        // Smooth Scrolling Implementation
+        let direction = 1;       // 1 = down, -1 = up
+        let speed = 2.8;         // increase for faster (smooth speed)
+        let running = true;
+
+        function smoothScroll() {
+            if (!running) return;
+
+            window.scrollBy(0, speed * direction);
+
+            const top = window.scrollY;
+            const bottom = document.documentElement.scrollHeight - window.innerHeight;
+
+            // Reverse at bottom
+            if (top >= bottom - 1) {
+                direction = -1;
+            }
+
+            // Reverse at top
+            if (top <= 0) {
+                direction = 1;
+            }
+            
+            requestAnimationFrame(smoothScroll);
+        }
+
+        // Start smooth scrolling when page loads
+        smoothScroll();
+
+        // To stop scrolling:
+        // running = false;
+
         // ClickSpark Function
         function ClickSpark(container, {
             sparkColor = '#fff',
