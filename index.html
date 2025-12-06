@@ -694,11 +694,10 @@
         }
        
         footer {
-            background: var(--card-bg);
+            background: var(--dark-bg);
             padding: 50px 20px;
             margin-top: 80px;
             text-align: center;
-            /* Removed the border-top and border-image to eliminate the outer box */
         }
        
         .footer-content {
@@ -723,19 +722,8 @@
         }
        
         .copyright {
-            /* Removed the border-top to clean up the grey line */
             color: var(--text-secondary);
             font-size: 0.9rem;
-        }
-
-        /* Footer box with rounded corners - REMOVED BORDER TO ELIMINATE GREY BOX */
-        .footer-box {
-            background: linear-gradient(135deg, rgba(255, 68, 68, 0.05), rgba(255, 140, 0, 0.05));
-            padding: 40px;
-            border-radius: 20px;
-            /* REMOVED: border: 1px solid rgba(255, 68, 68, 0.2); */
-            margin: 0 auto;
-            max-width: 800px;
         }
        
         @media (max-width: 768px) {
@@ -985,14 +973,12 @@
        
         <footer id="contact">
             <div class="footer-content">
-                <div class="footer-box">
-                    <div class="footer-logo">TIS JESTERS</div>
-                    <p class="footer-tagline">First Lego League Team</p>
-                    <p style="color: var(--text-secondary); margin-bottom: 30px;">Building the future one robot at a time</p>
-                   
-                    <div class="copyright">
-                        © 2025 TIS Jesters. All rights reserved.
-                    </div>
+                <div class="footer-logo">TIS JESTERS</div>
+                <p class="footer-tagline">First Lego League Team</p>
+                <p style="color: var(--text-secondary); margin-bottom: 30px;">Building the future one robot at a time</p>
+               
+                <div class="copyright">
+                    © 2025 TIS Jesters. All rights reserved.
                 </div>
             </div>
         </footer>
