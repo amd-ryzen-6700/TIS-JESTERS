@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIS Jesters - FLL Team</title>
+    <title>TIS Phantom Shadow - FLL Team</title>
     <link rel="icon" href="images/Tis Jesters Logo.png" type="image/png">
     <link rel="shortcut icon" href="images/Tis Jesters Logo.png" type="image/png">
     <link rel="apple-touch-icon" href="images/Tis Jesters Logo.png" type="image/png">
@@ -315,7 +315,7 @@
             border-radius: 15px;
             border: 1px solid rgba(255, 68, 68, 0.2);
             position: relative;
-            z-index: 1; /* Above timeline line */
+            z-index: 1;
         }
        
         .section-title {
@@ -326,7 +326,7 @@
             position: relative;
             display: inline-block;
             width: 100%;
-            z-index: 10; /* Ensure section titles appear above timeline line */
+            z-index: 10;
         }
        
         .section-title span {
@@ -442,7 +442,6 @@
             margin-top: 20px;
         }
 
-        /* Fix color consistency for all team member bios */
         .team-member:nth-child(1) .member-bio {
             background: linear-gradient(135deg, rgba(255, 68, 68, 0.05), rgba(255, 140, 0, 0.05));
             padding: 20px;
@@ -464,7 +463,7 @@
             border: 1px solid rgba(255, 68, 68, 0.2);
         }
        
-        /* Robot showcase section - UPDATED */
+        /* Robot showcase section */
         .robot-showcase {
             margin: 60px 0;
             text-align: center;
@@ -511,7 +510,7 @@
             border-radius: 15px;
             border: 1px solid rgba(255, 68, 68, 0.2);
             position: relative;
-            z-index: 1; /* Above timeline line */
+            z-index: 1;
         }
        
         .achievements {
@@ -577,7 +576,7 @@
             line-height: 1.6;
         }
        
-        /* Fixed Timeline Styles - UPDATED */
+        /* Timeline Styles */
         .timeline {
             margin: 60px 0;
             position: relative;
@@ -593,7 +592,7 @@
             width: 3px;
             background: linear-gradient(180deg, var(--primary-color), var(--orange-primary), var(--orange-secondary));
             transform: translateX(-50%);
-            z-index: 0; /* Behind content */
+            z-index: 0;
         }
         
         .timeline-item {
@@ -624,7 +623,7 @@
             border: 1px solid rgba(255, 68, 68, 0.2);
             position: relative;
             transition: all 0.3s;
-            z-index: 1; /* Above timeline line */
+            z-index: 1;
         }
         
         .timeline-content:hover {
@@ -672,7 +671,6 @@
             line-height: 1.6;
         }
         
-        /* Mobile Responsive Fixes */
         @media (max-width: 768px) {
             .timeline::before {
                 left: 30px;
@@ -783,7 +781,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Orange accent elements */
         .orange-accent {
             color: var(--orange-primary);
         }
@@ -792,12 +789,10 @@
             text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
         }
 
-        /* Enhanced smooth scrolling */
         html {
             scroll-behavior: smooth;
         }
 
-        /* Navigation active state indicator */
         .nav-links a.active {
             color: var(--orange-primary);
         }
@@ -831,7 +826,7 @@
     <nav>
         <div class="nav-container">
             <a href="#home" class="logo">
-                TIS Jesters
+                TIS Phantom Shadow
             </a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -847,7 +842,7 @@
     <div class="container">
         <header id="home">
             <div class="header-content">
-                <h1>TIS Jesters</h1>
+                <h1>TIS Phantom Shadow</h1>
                 <p class="tagline">"2025 Tested Us, 2026 Definds Us"</p>
                 <div class="divider"></div>
                 <p style="color: var(--text-secondary); font-size: 1.1rem;">Innovation <span class="orange-accent">•</span> Excellence <span class="orange-accent">•</span> Teamwork</p>
@@ -856,26 +851,24 @@
        
         <section class="mission">
             <h2>About Us</h2>
-            <p>Tis Jesters had a demanding and unforgettable 2025 season, earning the opportunity to compete at both Regionals and Nationals through months of hard work, innovation, and teamwork. While reaching these competitions was a major achievement, the journey was far from easy. At both Regionals and Nationals, many failures occurred - robots didn’t always perform as planned, pressure was high, and unexpected problems arose at critical moments. These setbacks were frustrating and challenging, but they pushed the team to think deeper, adapt faster, and support one another through tough situations. Rather than seeing these moments as defeats, Tis Jesters chose to view them as valuable lessons. The experiences from 2025 highlighted areas for improvement in preparation, strategy, and execution. With renewed motivation and a clearer vision, Tis Jesters have made the decision to return in 2026 stronger than ever, determined to learn from the past, refine their skills, and strive for greater success together.</p>
+            <p>TIS Phantom Shadow had a demanding and unforgettable 2025 season, earning the opportunity to compete at both Regionals and Nationals through months of hard work, innovation, and teamwork. While reaching these competitions was a major achievement, the journey was far from easy. At both Regionals and Nationals, many failures occurred - robots didn't always perform as planned, pressure was high, and unexpected problems arose at critical moments. These setbacks were frustrating and challenging, but they pushed the team to think deeper, adapt faster, and support one another through tough situations. Rather than seeing these moments as defeats, TIS Phantom Shadow chose to view them as valuable lessons. The experiences from 2025 highlighted areas for improvement in preparation, strategy, and execution. With renewed motivation and a clearer vision, TIS Phantom Shadow have made the decision to return in 2026 stronger than ever, determined to learn from the past, refine their skills, and strive for greater success together.</p>
         </section>
        
         <section id="team">
             <h2 class="section-title"><span>Meet Our Team</span></h2>
            
             <div class="team-grid">
-                <!-- FIRST: Aden Murray (Sigma Aden) -->
                 <div class="team-member">
                     <div class="member-content">
                         <h3 class="member-name">Nathaniel Person</h3>
                         <p class="member-role">Lead Builder ,Lead Researcher</p>
                         <div class="member-photo">
-                            <img src="images/Sigma_Nathaniel.png" alt="Aden Murray - Innovation Designer">
+                            <img src="images/Sigma_Nathaniel.png" alt="Nathaniel Person - Lead Builder">
                         </div>
-                        <p class="member-bio">My name is Nathaniel, and I am a builder, innovation team member, and researcher for the Tis Jesters FLL team. I help design and build the robot while also researching ideas and contributing to our innovation project. I enjoy learning new things and working with my team to turn ideas into real solutions.</p>
+                        <p class="member-bio">My name is Nathaniel, and I am a builder, innovation team member, and researcher for the TIS Phantom Shadow FLL team. I help design and build the robot while also researching ideas and contributing to our innovation project. I enjoy learning new things and working with my team to turn ideas into real solutions.</p>
                     </div>
                 </div>
                
-                <!-- SECOND: Kevin Lo (Sigma Kevin) -->
                 <div class="team-member">
                     <div class="member-content">
                         <h3 class="member-name">Kevin Lo</h3>
@@ -883,19 +876,18 @@
                         <div class="member-photo">
                             <img src="images/Sigma Kevin.png" alt="Kevin Lo - Team Captain">
                         </div>
-                        <p class="member-bio">My name is Kevin, and I am the captain of the Tis Jesters FLL team. I work as a co-coder and co-builder, helping to design, build, and program our robot. I enjoy leading my team, solving challenges together, and pushing our robot to perform at its best.</p>
+                        <p class="member-bio">My name is Kevin, and I am the captain of the TIS Phantom Shadow FLL team. I work as a co-coder and co-builder, helping to design, build, and program our robot. I enjoy leading my team, solving challenges together, and pushing our robot to perform at its best.</p>
                     </div>
                 </div>
                
-                <!-- THIRD: Liam Watson (Sigma Liam) -->
                 <div class="team-member">
                     <div class="member-content">
                         <h3 class="member-name">Liam Watson</h3>
                         <p class="member-role">Lead Coder Co-Inivation Co-reasearcher</p>
                         <div class="member-photo">
-                            <img src="images/Sigma Liam.png" alt="Liam Watson - Attachments Builder">
+                            <img src="images/Sigma Liam.png" alt="Liam Watson - Lead Coder">
                         </div>
-                        <p class="member-bio">My name is Liam, and I am the co-captain of the Tis Jesters FLL team. I work as a coder and co-innovation lead, helping to program our robot and develop creative solutions for our innovation project. I enjoy collaborating with my team and contributing ideas that help us succeed.</p>
+                        <p class="member-bio">My name is Liam, and I am the co-captain of the TIS Phantom Shadow FLL team. I work as a coder and co-innovation lead, helping to program our robot and develop creative solutions for our innovation project. I enjoy collaborating with my team and contributing ideas that help us succeed.</p>
                     </div>
                 </div>
             </div>
@@ -903,9 +895,8 @@
        
         <section id="robot" class="robot-showcase">
             <h2 class="section-title"><span>Our Robot</span></h2>
-            <!-- ROBOT IMAGE SECTION - UPDATED -->
             <div class="robot-image">
-                <img src="images/Robot.png" alt="Dwayne the Box Johnson - TIS Jesters Robot">
+                <img src="images/Robot.png" alt="Dwayne the Box Johnson - TIS Phantom Shadow Robot">
             </div>
             <p class="robot-description">
                 Our robot, <span class="orange-glow">"Dwayne the Box Johnson"</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Dwayne the Box Johnson can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds.
@@ -942,7 +933,7 @@
                 <div class="timeline-content">
                     <div class="timeline-date">March 2025</div>
                     <div class="timeline-title">Team Formation</div>
-                    <div class="timeline-description">The TIS Jesters came together with a shared passion for robotics and innovation.</div>
+                    <div class="timeline-description">The TIS Phantom Shadow came together with a shared passion for robotics and innovation.</div>
                 </div>
             </div>
             
@@ -981,12 +972,12 @@
        
         <footer id="contact">
             <div class="footer-content">
-                <div class="footer-logo">TIS JESTERS</div>
+                <div class="footer-logo">TIS PHANTOM SHADOW</div>
                 <p class="footer-tagline">First Lego League Team 2026</p>
                 <p style="color: var(--text-secondary); margin-bottom: 30px;">2025 TESTED US 2026 REFINDS US</p>
                
                 <div class="copyright">
-                    © 2026 TIS Jesters. All rights reserved.
+                    © 2026 TIS Phantom Shadow. All rights reserved.
                 </div>
             </div>
         </footer>
@@ -994,10 +985,10 @@
    
     <script>
         // Smooth Scrolling Implementation
-        let direction = 1;       // 1 = down, -1 = up
-        let speed = 2.8;         // increase for faster (smooth speed)
+        let direction = 1;
+        let speed = 2.8;
         let running = true;
-        let rafId = null;        // Store the animation frame ID
+        let rafId = null;
 
         function smoothScroll() {
             if (!running) return;
@@ -1007,12 +998,10 @@
             const top = window.scrollY;
             const bottom = document.documentElement.scrollHeight - window.innerHeight;
 
-            // Reverse at bottom
             if (top >= bottom - 1) {
                 direction = -1;
             }
 
-            // Reverse at top
            if (top <= 0) {
                 direction = 1;
             }
@@ -1020,20 +1009,15 @@
             rafId = requestAnimationFrame(smoothScroll);
         }
 
-        // Start smooth scrolling when page loads
         smoothScroll();
 
-        // Keyboard controls for smooth scrolling
         document.addEventListener('keydown', (e) => {
-            // Stop/start scrolling with 'E' key
             if (e.key.toLowerCase() === 'e') {
                 running = !running;
                 
                 if (running) {
-                    // Resume scrolling
                     smoothScroll();
                 } else {
-                    // Stop scrolling - cancel the current animation frame
                     if (rafId) {
                         cancelAnimationFrame(rafId);
                         rafId = null;
@@ -1041,14 +1025,12 @@
                 }
             }
             
-            // Change direction with arrow keys
             if (e.key === 'ArrowUp') {
                 direction = -1;
             } else if (e.key === 'ArrowDown') {
                 direction = 1;
             }
             
-            // Speed controls with '+' and '-' keys
             if (e.key === '+') {
                 speed += 0.5;
             } else if (e.key === '-') {
@@ -1075,7 +1057,6 @@
             let sparks = [];
             let rafId = null;
 
-            // Handle high-DPI for crisp lines
             function resizeCanvas() {
                 const rect = container.getBoundingClientRect();
                 const dpr = window.devicePixelRatio || 1;
@@ -1089,7 +1070,6 @@
             }
             resizeCanvas();
 
-            // Resize observer with fallback
             let ro;
             if ('ResizeObserver' in window) {
                 let t;
@@ -1107,7 +1087,7 @@
                     case 'linear': return t;
                     case 'ease-in': return t * t;
                     case 'ease-in-out': return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-                    default: return t * (2 - t); // ease-out
+                    default: return t * (2 - t);
                 }
             }
 
@@ -1151,7 +1131,6 @@
                 sparks.push(...newSparks);
             });
 
-            // Cleanup (optional, if you need to remove later)
             return {
                 destroy() {
                     if (rafId) cancelAnimationFrame(rafId);
@@ -1163,7 +1142,6 @@
             };
         }
 
-        // Initialize ClickSpark after DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
             const sparkArea = document.getElementById('spark-area');
             ClickSpark(sparkArea, {
@@ -1175,7 +1153,6 @@
             });
         });
 
-        // Enhanced smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1185,15 +1162,12 @@
                
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    // Remove active class from all links
                     document.querySelectorAll('.nav-links a').forEach(link => {
                         link.classList.remove('active');
                     });
                     
-                    // Add active class to clicked link
                     this.classList.add('active');
                     
-                    // Smooth scroll with enhanced timing
                     const yOffset = -80;
                     const elementTop = targetElement.getBoundingClientRect().top;
                     const offsetTop = elementTop + window.pageYOffset + yOffset;
@@ -1206,7 +1180,6 @@
             });
         });
        
-        // Add parallax effect to geometric shapes
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const shapes = document.querySelectorAll('.geometric-shape');
@@ -1217,16 +1190,14 @@
             });
         });
 
-        // Hide loading screen on page load
         window.addEventListener('load', () => {
             const loadingScreen = document.getElementById('loading-screen');
             loadingScreen.classList.add('hidden');
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
-            }, 500); // Match transition duration
+            }, 500);
         });
 
-        // Enhanced navigation active state based on scroll position
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-links a');
