@@ -1898,6 +1898,13 @@
                 });
             });
 
+            /* ─── MOBILE MENU ─── */
+            const mobileToggle = document.getElementById('mobileToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+
             /* ─── SMOOTH NAV SCROLL ─── */
             document.querySelectorAll('a[href^="#"]').forEach(a => {
                 a.addEventListener('click', e => {
@@ -1912,13 +1919,6 @@
                     // close mobile menu
                     mobileMenu.classList.remove('open');
                 });
-            });
-
-            /* ─── MOBILE MENU ─── */
-            const mobileToggle = document.getElementById('mobileToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileToggle.addEventListener('click', () => {
-                mobileMenu.classList.toggle('open');
             });
 
             /* ─── AUTO-SCROLL ─── */
@@ -2021,7 +2021,7 @@
             });
 
             /* ─── CLICK BURST (CSS lines) ─── */
-            console.log("Easter Egg
+            console.log(`Easter Egg
                         
                         
               ██████
@@ -2051,7 +2051,7 @@
         ░░██████████████
           ░░██████████
           ░░░░░░░░░░░░
-            ░░░░░░░░")
+            ░░░░░░░░`);
             let lastBurst = 0;
             window.addEventListener('pointerdown', e => {
                 const now = performance.now();
