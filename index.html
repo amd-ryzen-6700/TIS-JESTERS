@@ -176,7 +176,6 @@
             }
         }
 
-        /* Warm vignette */
         .vignette {
             position: fixed;
             inset: 0;
@@ -287,7 +286,6 @@
             contain: layout style;
         }
 
-        /* Shimmer sweep */
         .glass::before {
             content: '';
             position: absolute;
@@ -305,7 +303,6 @@
             left: 110%
         }
 
-        /* Top-edge warm glow strip */
         .glass::after {
             content: '';
             position: absolute;
@@ -334,9 +331,6 @@
             opacity: 1.5
         }
 
-        /* ═══════════════════════════════════════
-           GLASS ACCENT — stronger glass for hero cards
-           ═══════════════════════════════════════ */
         .glass-accent {
             background: rgba(255, 190, 140, .04);
             border-color: rgba(255, 190, 130, .12);
@@ -437,7 +431,6 @@
             white-space: nowrap;
         }
 
-        /* Micro: warm underline on hover */
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -522,30 +515,13 @@
         }
 
         @keyframes pulse-dot {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1)
-            }
-
-            50% {
-                opacity: .35;
-                transform: scale(.55)
-            }
+            0%, 100% { opacity: 1; transform: scale(1) }
+            50% { opacity: .35; transform: scale(.55) }
         }
 
-        /* Micro: gentle floating badge */
         @keyframes micro-float {
-
-            0%,
-            100% {
-                transform: translateY(0)
-            }
-
-            50% {
-                transform: translateY(-4px)
-            }
+            0%, 100% { transform: translateY(0) }
+            50% { transform: translateY(-4px) }
         }
 
         .hero-title {
@@ -585,22 +561,12 @@
         }
 
         @keyframes charIn {
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0)
-            }
+            to { opacity: 1; transform: translateY(0) rotateX(0) }
         }
 
         @keyframes gradShift {
-
-            0%,
-            100% {
-                background-position: 0% 50%
-            }
-
-            50% {
-                background-position: 100% 50%
-            }
+            0%, 100% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
         }
 
         .hero-tagline {
@@ -628,15 +594,8 @@
         }
 
         @keyframes shimmer {
-
-            0%,
-            100% {
-                background-position: 0% 50%
-            }
-
-            50% {
-                background-position: 100% 50%
-            }
+            0%, 100% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
         }
 
         .hero-values {
@@ -683,25 +642,12 @@
         }
 
         @keyframes scrollPulse {
-
-            0%,
-            100% {
-                opacity: .25;
-                transform: scaleY(.4);
-                transform-origin: top
-            }
-
-            50% {
-                opacity: 1;
-                transform: scaleY(1)
-            }
+            0%, 100% { opacity: .25; transform: scaleY(.4); transform-origin: top }
+            50% { opacity: 1; transform: scaleY(1) }
         }
 
         @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0)
-            }
+            to { opacity: 1; transform: translateY(0) }
         }
 
         /* ═══════════════════════════════════════
@@ -798,6 +744,14 @@
             padding: 36px 26px 30px;
             text-align: center;
             border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden; /* Contains our custom hover effects */
+        }
+
+        /* Ensure card text and images remain readable over hover effects */
+        .team-card > * {
+            position: relative;
+            z-index: 2;
         }
 
         .team-card:hover {
@@ -816,7 +770,6 @@
             transition: all .5s var(--ease-out-expo);
         }
 
-        /* Micro: warm ring glow on hover */
         .card-photo::after {
             content: '';
             position: absolute;
@@ -882,6 +835,89 @@
         .team-card:hover .card-bio {
             border-color: rgba(255, 190, 130, .08)
         }
+
+        /* ═══════════════════════════════════════
+           TEAM CARD HOVER EASTER EGGS
+           ═══════════════════════════════════════ */
+
+        /* Nathaniel: Monster Energy Spill */
+        .card-nathaniel::before {
+            content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(149, 214, 0, 0.25) 0%, rgba(149, 214, 0, 0) 100%);
+            transition: top 0.6s var(--ease-out-expo); pointer-events: none; z-index: 1;
+        }
+        .card-nathaniel::after {
+            content: ''; position: absolute; top: -100%; left: 30%; width: 5px; height: 60px;
+            background: #95d600; box-shadow: 0 0 15px #95d600; border-radius: 5px;
+            transition: top 0.8s var(--ease-out-expo); pointer-events: none; z-index: 1;
+        }
+        .card-nathaniel:hover::before { top: 0; }
+        .card-nathaniel:hover::after { top: 30%; animation: monsterDrip 1.4s infinite ease-in; }
+        @keyframes monsterDrip { 
+            0% { top: 10%; opacity: 0; height: 10px; } 
+            50% { opacity: 0.6; height: 60px; } 
+            100% { top: 80%; opacity: 0; height: 15px; } 
+        }
+
+        /* Kevin: Bok Choy Growth */
+        .card-kevin::before, .card-kevin::after {
+            content: ''; position: absolute; bottom: -50px; width: 50px; height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23a2d959"><path d="M12,3C12,3 9,7 9,11C9,14 11,16 11,20C11,21 12,22 12,22C12,22 13,21 13,20C13,16 15,14 15,11C15,7 12,3 12,3M7,9C7,9 4,12 4,15C4,17 5.5,18.5 7,19C7,19 8,16 8,14C8,11 7,9 7,9M17,9C17,9 20,12 20,15C20,17 18.5,18.5 17,19C17,19 16,16 16,14C16,11 17,9 17,9Z"/></svg>') no-repeat center / contain;
+            opacity: 0; transition: all 0.7s var(--ease-spring); pointer-events: none; z-index: 1;
+        }
+        .card-kevin::before { left: 15%; transform: translateY(20px) scale(0.4) rotate(-15deg); }
+        .card-kevin::after { right: 15%; transform: translateY(20px) scale(0.6) rotate(20deg); transition-delay: 0.1s; }
+        .card-kevin:hover::before { opacity: 0.2; transform: translateY(-30px) scale(1.3) rotate(-5deg); }
+        .card-kevin:hover::after { opacity: 0.2; transform: translateY(-40px) scale(1.6) rotate(10deg); }
+
+        /* Liam: Binary Code */
+        .card-liam::before {
+            content: '01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001';
+            position: absolute; top: -150%; left: 0; width: 100%; height: 300%;
+            font-family: monospace; font-size: 1.2rem; font-weight: bold; color: #4af626; opacity: 0;
+            line-height: 1.6; text-align: justify; word-break: break-all;
+            pointer-events: none; z-index: 1; transition: opacity 0.4s;
+        }
+        .card-liam:hover::before { opacity: 0.05; animation: liamBinary 10s linear infinite; }
+        @keyframes liamBinary { 0% { transform: translateY(0); } 100% { transform: translateY(30%); } }
+
+        /* Nixon: Nintendo Switches */
+        .card-nixon::before, .card-nixon::after {
+            content: ''; position: absolute; width: 50px; height: 22px; border-radius: 12px;
+            background: linear-gradient(90deg, #00c3e3 25%, #222 25%, #222 75%, #ff003c 75%);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            opacity: 0; pointer-events: none; z-index: 1;
+            transition: all 0.6s var(--ease-spring);
+        }
+        .card-nixon::before { bottom: 10px; left: 10px; transform: translateY(40px) rotate(-30deg) scale(0.5); }
+        .card-nixon::after { top: 10px; right: 10px; transform: translateY(-40px) rotate(45deg) scale(0.5); }
+        .card-nixon:hover::before { opacity: 0.35; transform: translateY(-20px) rotate(-15deg) scale(1); }
+        .card-nixon:hover::after { opacity: 0.35; transform: translateY(20px) rotate(20deg) scale(1.2); }
+
+        /* Kian: Lifting Dumbbells */
+        .card-kian::before {
+            content: ''; position: absolute; top: 30%; right: 15px; width: 35px; height: 35px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f0a030"><path d="M20.57 14.86L22 13.43L20.57 12L17 15.57L8.43 7L12 3.43L10.57 2L9.14 3.43L7.71 2L5.57 4.14L4.14 2.71L2.71 4.14L4.14 5.57L2 7.71L3.43 9.14L2 10.57L3.43 12L7 8.43L15.57 17L12 20.57L13.43 22L14.86 20.57L16.29 22L18.43 19.86L19.86 21.29L21.29 19.86L19.86 18.43L22 16.29L20.57 14.86Z"/></svg>') no-repeat center / contain;
+            opacity: 0; transform: translateY(30px) rotate(0deg); transition: opacity 0.4s var(--ease-out-expo); pointer-events: none; z-index: 1;
+        }
+        .card-kian:hover::before { opacity: 0.15; animation: kianLift 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+        @keyframes kianLift { 0% { transform: translateY(25px) rotate(-10deg); } 100% { transform: translateY(-25px) rotate(10deg); } }
+
+        /* Conner: Juices Flowing */
+        .card-conner::before, .card-conner::after {
+            content: ''; position: absolute; width: 200%; height: 200%; top: 100%; left: -50%;
+            background: rgba(240, 160, 48, 0.12); /* Amber juice */
+            border-radius: 40%;
+            transition: top 1s var(--ease-out-expo), opacity 0.5s;
+            opacity: 0; pointer-events: none; z-index: 1;
+        }
+        .card-conner::after {
+            background: rgba(226, 85, 53, 0.1); /* Primary warm juice */
+            border-radius: 45%; transition-delay: 0.1s;
+        }
+        .card-conner:hover::before { top: 40%; opacity: 1; animation: connerJuice 6s linear infinite; }
+        .card-conner:hover::after { top: 50%; opacity: 1; animation: connerJuice 4s linear infinite reverse; }
+        @keyframes connerJuice { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* ═══════════════════════════════════════
            ROBOT
@@ -984,21 +1020,13 @@
             transition: all .45s var(--ease-spring);
         }
 
-        /* Micro: gentle breathe animation */
         .achievement-icon {
             animation: icon-breathe 3s ease-in-out infinite
         }
 
         @keyframes icon-breathe {
-
-            0%,
-            100% {
-                transform: scale(1)
-            }
-
-            50% {
-                transform: scale(1.04)
-            }
+            0%, 100% { transform: scale(1) }
+            50% { transform: scale(1.04) }
         }
 
         .achievement-card:hover .achievement-icon {
@@ -1111,17 +1139,8 @@
         }
 
         @keyframes ring-pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: .8
-            }
-
-            50% {
-                transform: scale(1.6);
-                opacity: 0
-            }
+            0%, 100% { transform: scale(1); opacity: .8 }
+            50% { transform: scale(1.6); opacity: 0 }
         }
 
         .timeline-date {
@@ -1247,21 +1266,10 @@
             transform: scale(1)
         }
 
-        .stagger-1 {
-            transition-delay: .1s
-        }
-
-        .stagger-2 {
-            transition-delay: .2s
-        }
-
-        .stagger-3 {
-            transition-delay: .3s
-        }
-
-        .stagger-4 {
-            transition-delay: .4s
-        }
+        .stagger-1 { transition-delay: .1s }
+        .stagger-2 { transition-delay: .2s }
+        .stagger-3 { transition-delay: .3s }
+        .stagger-4 { transition-delay: .4s }
 
         /* ═══════════════════════════════════════
            SCROLL INDICATOR
@@ -1352,19 +1360,12 @@
         }
 
         @keyframes __bshoot {
-            0% {
-                transform: rotate(var(--a)) translateY(0) scaleY(.2);
-                opacity: .85
-            }
-
-            100% {
-                transform: rotate(var(--a)) translateY(-40px) scaleY(1);
-                opacity: 0
-            }
+            0% { transform: rotate(var(--a)) translateY(0) scaleY(.2); opacity: .85 }
+            100% { transform: rotate(var(--a)) translateY(-40px) scaleY(1); opacity: 0 }
         }
 
         /* ═══════════════════════════════════════
-           MOBILE TOGGLE
+           MOBILE TOGGLE & MENU
            ═══════════════════════════════════════ */
         .mobile-toggle {
             display: none;
@@ -1378,13 +1379,8 @@
             transition: background .3s;
         }
 
-        .mobile-toggle:hover {
-            background: rgba(255, 190, 130, .08)
-        }
+        .mobile-toggle:hover { background: rgba(255, 190, 130, .08) }
 
-        /* ═══════════════════════════════════════
-           MOBILE MENU PANEL
-           ═══════════════════════════════════════ */
         .mobile-menu {
             display: none;
             position: fixed;
@@ -1401,9 +1397,7 @@
             transition: transform .5s var(--ease-out-expo);
         }
 
-        .mobile-menu.open {
-            transform: translateY(0)
-        }
+        .mobile-menu.open { transform: translateY(0) }
 
         .mobile-menu a {
             display: block;
@@ -1425,23 +1419,13 @@
            REDUCED MOTION
            ═══════════════════════════════════════ */
         @media(prefers-reduced-motion:reduce) {
-
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 animation-duration: .01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: .01ms !important;
             }
-
-            .blob {
-                animation: none !important
-            }
-
-            .reveal,
-            .reveal-left,
-            .reveal-right,
-            .reveal-scale {
+            .blob { animation: none !important }
+            .reveal, .reveal-left, .reveal-right, .reveal-scale {
                 opacity: 1 !important;
                 transform: none !important;
             }
@@ -1451,87 +1435,32 @@
            RESPONSIVE
            ═══════════════════════════════════════ */
         @media(max-width:768px) {
-            nav {
-                top: 10px;
-                padding: 9px 18px;
-                border-radius: var(--radius-sm)
-            }
-
-            .nav-divider {
-                display: none
-            }
-
-            .nav-links {
-                display: none
-            }
-
-            .mobile-toggle {
-                display: block
-            }
-
-            .mobile-menu {
-                display: block
-            }
-
-            .hero {
-                padding: 100px 20px 60px;
-                min-height: 88vh
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr
-            }
-
-            .achievement-grid {
-                grid-template-columns: 1fr
-            }
-
+            nav { top: 10px; padding: 9px 18px; border-radius: var(--radius-sm) }
+            .nav-divider { display: none }
+            .nav-links { display: none }
+            .mobile-toggle { display: block }
+            .mobile-menu { display: block }
+            .hero { padding: 100px 20px 60px; min-height: 88vh }
+            .team-grid { grid-template-columns: 1fr }
+            .achievement-grid { grid-template-columns: 1fr }
             .timeline-item:nth-child(odd),
             .timeline-item:nth-child(even) {
                 padding-left: 44px;
                 padding-right: 0;
                 justify-content: flex-start;
             }
-
-            .timeline-line {
-                left: 14px
-            }
-
-            .timeline-dot {
-                left: 14px
-            }
-
-            .about-text {
-                padding: 26px 22px
-            }
-
-            .robot-desc {
-                padding: 26px 22px
-            }
-
-            .footer-glass {
-                padding: 32px 22px
-            }
-
-            section {
-                padding: 56px 0
-            }
-
-            .scroll-indicator {
-                font-size: .6rem;
-                padding: 5px 10px
-            }
+            .timeline-line { left: 14px }
+            .timeline-dot { left: 14px }
+            .about-text { padding: 26px 22px }
+            .robot-desc { padding: 26px 22px }
+            .footer-glass { padding: 32px 22px }
+            section { padding: 56px 0 }
+            .scroll-indicator { font-size: .6rem; padding: 5px 10px }
         }
 
         @media(max-width:480px) {
-            .hero-title {
-                font-size: 2.3rem
-            }
-
-            .card-photo {
-                width: 120px;
-                height: 120px
-            }
+            .hero-title { font-size: 2.3rem }
+            .card-photo { width: 120px; height: 120px }
         }
     </style>
 </head>
@@ -1638,7 +1567,8 @@
             </div>
 
             <div class="team-grid">
-                <div class="team-card glass reveal stagger-1">
+                <!-- Custom Classes (card-[name]) Added for Hover Easter Eggs -->
+                <div class="team-card glass reveal stagger-1 card-nathaniel">
                     <div class="card-photo">
                         <img src="images/Nathaniel.png" alt="Nathaniel Person" loading="lazy">
                     </div>
@@ -1647,7 +1577,7 @@
                     <p class="card-bio">My name is Nathaniel, and I am a builder, innovation team member, and researcher for the TIS Phantom Shadow FLL team. I help design and build the robot while also researching ideas and contributing to our innovation project. I enjoy learning new things and working with my team to turn ideas into real solutions.</p>
                 </div>
 
-                <div class="team-card glass reveal stagger-2">
+                <div class="team-card glass reveal stagger-2 card-kevin">
                     <div class="card-photo">
                         <img src="images/Kevin.png" alt="Kevin Lo" loading="lazy">
                     </div>
@@ -1656,7 +1586,7 @@
                     <p class="card-bio">My name is Kevin, and I am the captain of the TIS Phantom Shadow FLL team. I work as a co-coder and co-builder, helping to design, build, and program our robot. I enjoy leading my team, solving challenges together, and pushing our robot to perform at its best.</p>
                 </div>
 
-                <div class="team-card glass reveal stagger-3">
+                <div class="team-card glass reveal stagger-3 card-liam">
                     <div class="card-photo">
                         <img src="images/Liam.png" alt="Liam Watson" loading="lazy">
                     </div>
@@ -1665,7 +1595,7 @@
                     <p class="card-bio">My name is Liam, and I am the co-captain of the TIS Phantom Shadow FLL team. I work as a coder and co-innovation lead, helping to program our robot and develop creative solutions for our innovation project. I enjoy collaborating with my team and contributing ideas that help us succeed.</p>
                 </div>
 
-                <div class="team-card glass reveal stagger-4">
+                <div class="team-card glass reveal stagger-4 card-nixon">
                     <div class="card-photo">
                         <img src="images/Nixon.png" alt="Nixon" loading="lazy">
                     </div>
@@ -1674,7 +1604,7 @@
                     <p class="card-bio">My name is Nixon, and I am a co-builder and innovation team member for the TIS Phantom Shadow FLL team. I help construct the robot attachments and brainstorm creative ideas for our project. I enjoy working hands-on and problem-solving with my teammates.</p>
                 </div>
 
-                <div class="team-card glass reveal stagger-1">
+                <div class="team-card glass reveal stagger-1 card-kian">
                     <div class="card-photo">
                         <img src="images/Kian.png" alt="Kian" loading="lazy">
                     </div>
@@ -1683,7 +1613,7 @@
                     <p class="card-bio">My name is Kian, and I am a co-coder and mission strategist for the TIS Phantom Shadow FLL team. I focus on programming the robot for consistent mission runs and optimizing our competition strategy. I love the challenge of making our robot perform autonomously.</p>
                 </div>
 
-                <div class="team-card glass reveal stagger-2">
+                <div class="team-card glass reveal stagger-2 card-conner">
                     <div class="card-photo">
                         <img src="images/Conner.png" alt="Conner" loading="lazy">
                     </div>
@@ -1943,7 +1873,6 @@
                         top: off,
                         behavior: 'smooth'
                     });
-                    // close mobile menu
                     mobileMenu.classList.remove('open');
                 });
             });
@@ -2048,37 +1977,6 @@
             });
 
             /* ─── CLICK BURST (CSS lines) ─── */
-            console.log(`Easter Egg
-                        
-                        
-              ██████
-          ░░██████████
-         ░░████████████
-        ░░██████████████
-       ░░████░░░░░░░░████
-      ░░██████████████████
-     ░░████████████████████
-    ░░██████████████████████
-    ░░████░░██░░██░░██░░████
-   ░░████████████████████████
-   ░░████████████████████████
-  ░░██████████████████████████
-  ░░████░░░░░░░░░░░░░░░░░░████
- ░░████████████████████████████
- ░░████████████████████████████
- ░░████████████████████████████
-░░██████░░██░░██░░██░░██░░██████
-░░██████████████████████████████
- ░░████████████████████████████
- ░░████████████████████████████
-  ░░████░░░░░░░░░░░░░░░░░░████
-   ░░████████████████████████
-    ░░██████████████████████
-      ░░██████████████████
-        ░░██████████████
-          ░░██████████
-          ░░░░░░░░░░░░
-            ░░░░░░░░`);
             let lastBurst = 0;
             window.addEventListener('pointerdown', e => {
                 const now = performance.now();
