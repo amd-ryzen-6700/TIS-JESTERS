@@ -94,7 +94,7 @@
         }
 
         /* ═══════════════════════════════════════
-           WARM BACKGROUND BLOBS  (3 only — perf)
+           WARM BACKGROUND BLOBS
            ═══════════════════════════════════════ */
         .bg-blobs {
             position: fixed;
@@ -113,6 +113,8 @@
             will-change: transform;
         }
 
+        /* Each blob gets a CSS custom property for parallax offset,
+           combined with the drift keyframes via a wrapper approach */
         .blob-1 {
             width: 560px;
             height: 560px;
@@ -141,39 +143,18 @@
         }
 
         @keyframes drift-a {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1)
-            }
-
-            50% {
-                transform: translate(60px, -40px) scale(1.06)
-            }
+            0%, 100% { transform: translate(var(--px, 0px), var(--py, 0px)) scale(1) }
+            50% { transform: translate(calc(60px + var(--px, 0px)), calc(-40px + var(--py, 0px))) scale(1.06) }
         }
 
         @keyframes drift-b {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1)
-            }
-
-            50% {
-                transform: translate(-50px, 45px) scale(1.08)
-            }
+            0%, 100% { transform: translate(var(--px, 0px), var(--py, 0px)) scale(1) }
+            50% { transform: translate(calc(-50px + var(--px, 0px)), calc(45px + var(--py, 0px))) scale(1.08) }
         }
 
         @keyframes drift-c {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1)
-            }
-
-            50% {
-                transform: translate(40px, 50px) scale(.95)
-            }
+            0%, 100% { transform: translate(var(--px, 0px), var(--py, 0px)) scale(1) }
+            50% { transform: translate(calc(40px + var(--px, 0px)), calc(50px + var(--py, 0px))) scale(.95) }
         }
 
         .vignette {
@@ -249,25 +230,18 @@
         }
 
         @keyframes spin {
-            to {
-                transform: rotate(360deg)
-            }
+            to { transform: rotate(360deg) }
         }
 
         @keyframes pulse-text {
-
-            0%,
-            100% {
-                opacity: .35
-            }
-
-            50% {
-                opacity: 1
-            }
+            0%, 100% { opacity: .35 }
+            50% { opacity: 1 }
         }
 
         /* ═══════════════════════════════════════
            GLASS COMPONENT
+           Now uses inner spans for shimmer/highlight
+           so ::before/::after stay free for card effects
            ═══════════════════════════════════════ */
         .glass {
             background: var(--glass-bg);
@@ -286,8 +260,8 @@
             contain: layout style;
         }
 
-        .glass::before {
-            content: '';
+        /* Shimmer sweep — now via inner element instead of ::before */
+        .glass > .glass-shimmer {
             position: absolute;
             top: 0;
             left: -110%;
@@ -299,12 +273,12 @@
             z-index: 1;
         }
 
-        .glass:hover::before {
+        .glass:hover > .glass-shimmer {
             left: 110%
         }
 
-        .glass::after {
-            content: '';
+        /* Top highlight — now via inner element instead of ::after */
+        .glass > .glass-highlight-bar {
             position: absolute;
             top: 0;
             left: 10%;
@@ -327,7 +301,7 @@
             transform: translateY(-4px);
         }
 
-        .glass:hover::after {
+        .glass:hover > .glass-highlight-bar {
             opacity: 1.5
         }
 
@@ -502,7 +476,12 @@
             margin-bottom: 32px;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp .8s .5s var(--ease-out-expo) forwards, micro-float 4s 1.5s ease-in-out infinite;
+            animation: fadeUp .8s .5s var(--ease-out-expo) forwards;
+        }
+
+        /* micro-float applied separately after fadeUp completes */
+        .hero-badge.float-active {
+            animation: micro-float 4s ease-in-out infinite;
         }
 
         .hero-badge .dot {
@@ -557,7 +536,12 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: charIn .7s var(--ease-out-expo) forwards, gradShift 5s ease-in-out infinite;
+        }
+
+        /* charIn runs first, then gradShift is added via JS after charIn completes */
+        .hero-title .word-phantom .char.anim-ready,
+        .hero-title .word-shadow .char.anim-ready {
+            animation: gradShift 5s ease-in-out infinite;
         }
 
         @keyframes charIn {
@@ -587,7 +571,7 @@
             border-radius: 3px;
             background: linear-gradient(90deg, var(--primary), var(--amber), var(--terracotta));
             background-size: 200% 100%;
-            animation: fadeUp .6s 1.4s var(--ease-out-expo) forwards, shimmer 3s ease-in-out infinite;
+            animation: fadeUp .6s 1.4s var(--ease-out-expo) forwards, shimmer 3s 2s ease-in-out infinite;
             opacity: 0;
             transform: translateY(20px);
             margin-bottom: 24px;
@@ -718,8 +702,7 @@
             z-index: 1;
         }
 
-        .about-text::after {
-            content: '\201C';
+        .about-quote-mark {
             position: absolute;
             top: 10px;
             left: 18px;
@@ -729,6 +712,7 @@
             line-height: 1;
             pointer-events: none;
             z-index: 0;
+            user-select: none;
         }
 
         /* ═══════════════════════════════════════
@@ -745,10 +729,9 @@
             text-align: center;
             border-radius: var(--radius-lg);
             position: relative;
-            overflow: hidden; /* Contains our custom hover effects */
+            overflow: hidden;
         }
 
-        /* Ensure card text and images remain readable over hover effects */
         .team-card > * {
             position: relative;
             z-index: 2;
@@ -770,13 +753,13 @@
             transition: all .5s var(--ease-out-expo);
         }
 
-        .card-photo::after {
-            content: '';
+        .card-photo-ring {
             position: absolute;
             inset: -6px;
             border: 2px solid rgba(240, 160, 48, .0);
             border-radius: 50%;
             transition: all .5s var(--ease-out-expo);
+            pointer-events: none;
         }
 
         .team-card:hover .card-photo {
@@ -785,7 +768,7 @@
             transform: scale(1.04);
         }
 
-        .team-card:hover .card-photo::after {
+        .team-card:hover .card-photo-ring {
             border-color: rgba(240, 160, 48, .15);
             inset: -10px;
         }
@@ -838,21 +821,42 @@
 
         /* ═══════════════════════════════════════
            TEAM CARD HOVER EASTER EGGS
+           Using dedicated overlay elements (.card-egg-*)
+           instead of ::before/::after to avoid conflicts
            ═══════════════════════════════════════ */
 
+        .card-egg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+            border-radius: inherit;
+        }
+
         /* Nathaniel: Monster Energy Spill */
-        .card-nathaniel::before {
-            content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+        .card-nathaniel .card-egg-a {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(to bottom, rgba(149, 214, 0, 0.25) 0%, rgba(149, 214, 0, 0) 100%);
-            transition: top 0.6s var(--ease-out-expo); pointer-events: none; z-index: 1;
+            transition: top 0.6s var(--ease-out-expo);
         }
-        .card-nathaniel::after {
-            content: ''; position: absolute; top: -100%; left: 30%; width: 5px; height: 60px;
-            background: #95d600; box-shadow: 0 0 15px #95d600; border-radius: 5px;
-            transition: top 0.8s var(--ease-out-expo); pointer-events: none; z-index: 1;
+        .card-nathaniel .card-egg-b {
+            position: absolute;
+            top: -100%;
+            left: 30%;
+            width: 5px;
+            height: 60px;
+            background: #95d600;
+            box-shadow: 0 0 15px #95d600;
+            border-radius: 5px;
+            transition: top 0.8s var(--ease-out-expo);
         }
-        .card-nathaniel:hover::before { top: 0; }
-        .card-nathaniel:hover::after { top: 30%; animation: monsterDrip 1.4s infinite ease-in; }
+        .card-nathaniel:hover .card-egg-a { top: 0; }
+        .card-nathaniel:hover .card-egg-b { top: 30%; animation: monsterDrip 1.4s 0.3s infinite ease-in; }
         @keyframes monsterDrip { 
             0% { top: 10%; opacity: 0; height: 10px; } 
             50% { opacity: 0.6; height: 60px; } 
@@ -860,63 +864,94 @@
         }
 
         /* Kevin: Bok Choy Growth */
-        .card-kevin::before, .card-kevin::after {
-            content: ''; position: absolute; bottom: -50px; width: 50px; height: 50px;
+        .card-kevin .card-egg-a,
+        .card-kevin .card-egg-b {
+            position: absolute;
+            bottom: -50px;
+            width: 50px;
+            height: 50px;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23a2d959"><path d="M12,3C12,3 9,7 9,11C9,14 11,16 11,20C11,21 12,22 12,22C12,22 13,21 13,20C13,16 15,14 15,11C15,7 12,3 12,3M7,9C7,9 4,12 4,15C4,17 5.5,18.5 7,19C7,19 8,16 8,14C8,11 7,9 7,9M17,9C17,9 20,12 20,15C20,17 18.5,18.5 17,19C17,19 16,16 16,14C16,11 17,9 17,9Z"/></svg>') no-repeat center / contain;
-            opacity: 0; transition: all 0.7s var(--ease-spring); pointer-events: none; z-index: 1;
+            opacity: 0;
+            transition: all 0.7s var(--ease-spring);
         }
-        .card-kevin::before { left: 15%; transform: translateY(20px) scale(0.4) rotate(-15deg); }
-        .card-kevin::after { right: 15%; transform: translateY(20px) scale(0.6) rotate(20deg); transition-delay: 0.1s; }
-        .card-kevin:hover::before { opacity: 0.2; transform: translateY(-30px) scale(1.3) rotate(-5deg); }
-        .card-kevin:hover::after { opacity: 0.2; transform: translateY(-40px) scale(1.6) rotate(10deg); }
+        .card-kevin .card-egg-a { left: 15%; transform: translateY(20px) scale(0.4) rotate(-15deg); }
+        .card-kevin .card-egg-b { right: 15%; left: auto; transform: translateY(20px) scale(0.6) rotate(20deg); transition-delay: 0.1s; }
+        .card-kevin:hover .card-egg-a { opacity: 0.2; transform: translateY(-30px) scale(1.3) rotate(-5deg); }
+        .card-kevin:hover .card-egg-b { opacity: 0.2; transform: translateY(-40px) scale(1.6) rotate(10deg); }
 
         /* Liam: Binary Code */
-        .card-liam::before {
-            content: '01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001';
-            position: absolute; top: -150%; left: 0; width: 100%; height: 300%;
-            font-family: monospace; font-size: 1.2rem; font-weight: bold; color: #4af626; opacity: 0;
-            line-height: 1.6; text-align: justify; word-break: break-all;
-            pointer-events: none; z-index: 1; transition: opacity 0.4s;
+        .card-liam .card-egg-a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4af626;
+            opacity: 0;
+            line-height: 1.6;
+            text-align: justify;
+            word-break: break-all;
+            overflow: hidden;
+            padding: 10px;
+            transition: opacity 0.4s;
         }
-        .card-liam:hover::before { opacity: 0.05; animation: liamBinary 10s linear infinite; }
-        @keyframes liamBinary { 0% { transform: translateY(0); } 100% { transform: translateY(30%); } }
+        .card-liam:hover .card-egg-a { opacity: 0.05; }
+        .card-liam .card-egg-scroll {
+            animation: liamBinary 10s linear infinite;
+        }
+        @keyframes liamBinary { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
         /* Nixon: Nintendo Switches */
-        .card-nixon::before, .card-nixon::after {
-            content: ''; position: absolute; width: 50px; height: 22px; border-radius: 12px;
+        .card-nixon .card-egg-a,
+        .card-nixon .card-egg-b {
+            position: absolute;
+            width: 50px;
+            height: 22px;
+            border-radius: 12px;
             background: linear-gradient(90deg, #00c3e3 25%, #222 25%, #222 75%, #ff003c 75%);
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            opacity: 0; pointer-events: none; z-index: 1;
+            opacity: 0;
             transition: all 0.6s var(--ease-spring);
         }
-        .card-nixon::before { bottom: 10px; left: 10px; transform: translateY(40px) rotate(-30deg) scale(0.5); }
-        .card-nixon::after { top: 10px; right: 10px; transform: translateY(-40px) rotate(45deg) scale(0.5); }
-        .card-nixon:hover::before { opacity: 0.35; transform: translateY(-20px) rotate(-15deg) scale(1); }
-        .card-nixon:hover::after { opacity: 0.35; transform: translateY(20px) rotate(20deg) scale(1.2); }
+        .card-nixon .card-egg-a { bottom: 10px; left: 10px; transform: translateY(40px) rotate(-30deg) scale(0.5); }
+        .card-nixon .card-egg-b { top: 10px; right: 10px; left: auto; transform: translateY(-40px) rotate(45deg) scale(0.5); }
+        .card-nixon:hover .card-egg-a { opacity: 0.35; transform: translateY(-20px) rotate(-15deg) scale(1); }
+        .card-nixon:hover .card-egg-b { opacity: 0.35; transform: translateY(20px) rotate(20deg) scale(1.2); }
 
         /* Kian: Lifting Dumbbells */
-        .card-kian::before {
-            content: ''; position: absolute; top: 30%; right: 15px; width: 35px; height: 35px;
+        .card-kian .card-egg-a {
+            position: absolute;
+            top: 30%;
+            right: 15px;
+            width: 35px;
+            height: 35px;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f0a030"><path d="M20.57 14.86L22 13.43L20.57 12L17 15.57L8.43 7L12 3.43L10.57 2L9.14 3.43L7.71 2L5.57 4.14L4.14 2.71L2.71 4.14L4.14 5.57L2 7.71L3.43 9.14L2 10.57L3.43 12L7 8.43L15.57 17L12 20.57L13.43 22L14.86 20.57L16.29 22L18.43 19.86L19.86 21.29L21.29 19.86L19.86 18.43L22 16.29L20.57 14.86Z"/></svg>') no-repeat center / contain;
-            opacity: 0; transform: translateY(30px) rotate(0deg); transition: opacity 0.4s var(--ease-out-expo); pointer-events: none; z-index: 1;
+            opacity: 0;
+            transform: translateY(30px) rotate(0deg);
+            transition: opacity 0.4s var(--ease-out-expo);
         }
-        .card-kian:hover::before { opacity: 0.15; animation: kianLift 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+        .card-kian:hover .card-egg-a { opacity: 0.15; animation: kianLift 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
         @keyframes kianLift { 0% { transform: translateY(25px) rotate(-10deg); } 100% { transform: translateY(-25px) rotate(10deg); } }
 
         /* Conner: Juices Flowing */
-        .card-conner::before, .card-conner::after {
-            content: ''; position: absolute; width: 200%; height: 200%; top: 100%; left: -50%;
-            background: rgba(240, 160, 48, 0.12); /* Amber juice */
+        .card-conner .card-egg-a,
+        .card-conner .card-egg-b {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: 100%;
+            left: -50%;
             border-radius: 40%;
             transition: top 1s var(--ease-out-expo), opacity 0.5s;
-            opacity: 0; pointer-events: none; z-index: 1;
+            opacity: 0;
         }
-        .card-conner::after {
-            background: rgba(226, 85, 53, 0.1); /* Primary warm juice */
-            border-radius: 45%; transition-delay: 0.1s;
-        }
-        .card-conner:hover::before { top: 40%; opacity: 1; animation: connerJuice 6s linear infinite; }
-        .card-conner:hover::after { top: 50%; opacity: 1; animation: connerJuice 4s linear infinite reverse; }
+        .card-conner .card-egg-a { background: rgba(240, 160, 48, 0.12); }
+        .card-conner .card-egg-b { background: rgba(226, 85, 53, 0.1); border-radius: 45%; transition-delay: 0.1s; }
+        .card-conner:hover .card-egg-a { top: 40%; opacity: 1; animation: connerJuice 6s linear infinite; }
+        .card-conner:hover .card-egg-b { top: 50%; opacity: 1; animation: connerJuice 4s linear infinite reverse; }
         @keyframes connerJuice { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* ═══════════════════════════════════════
@@ -939,12 +974,12 @@
             position: relative;
         }
 
-        .robot-frame::after {
-            content: '';
+        .robot-frame-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(180deg, transparent 50%, rgba(6, 3, 2, .45) 100%);
             pointer-events: none;
+            z-index: 1;
         }
 
         .robot-frame:hover {
@@ -1018,10 +1053,7 @@
             background: linear-gradient(135deg, rgba(226, 85, 53, .08), rgba(240, 160, 48, .08));
             border: 1px solid rgba(240, 160, 48, .12);
             transition: all .45s var(--ease-spring);
-        }
-
-        .achievement-icon {
-            animation: icon-breathe 3s ease-in-out infinite
+            animation: icon-breathe 3s ease-in-out infinite;
         }
 
         @keyframes icon-breathe {
@@ -1129,8 +1161,7 @@
             transition: all .3s;
         }
 
-        .timeline-dot::before {
-            content: '';
+        .timeline-dot-ring {
             position: absolute;
             inset: -5px;
             border: 2px solid rgba(240, 160, 48, .25);
@@ -1139,8 +1170,8 @@
         }
 
         @keyframes ring-pulse {
-            0%, 100% { transform: scale(1); opacity: .8 }
-            50% { transform: scale(1.6); opacity: 0 }
+            0%, 100% { transform: scale(1); opacity: .6 }
+            50% { transform: scale(1.8); opacity: 0 }
         }
 
         .timeline-date {
@@ -1339,32 +1370,6 @@
         }
 
         /* ═══════════════════════════════════════
-           CLICK BURST
-           ═══════════════════════════════════════ */
-        .__burst {
-            position: fixed;
-            pointer-events: none;
-            z-index: 2147483647
-        }
-
-        .__bline {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 5px;
-            height: 14px;
-            background: rgba(255, 210, 170, .7);
-            border-radius: 5px;
-            transform-origin: center bottom;
-            opacity: 1;
-        }
-
-        @keyframes __bshoot {
-            0% { transform: rotate(var(--a)) translateY(0) scaleY(.2); opacity: .85 }
-            100% { transform: rotate(var(--a)) translateY(-40px) scaleY(1); opacity: 0 }
-        }
-
-        /* ═══════════════════════════════════════
            MOBILE TOGGLE & MENU
            ═══════════════════════════════════════ */
         .mobile-toggle {
@@ -1473,7 +1478,7 @@
         <div class="loader-text">Loading</div>
     </div>
 
-    <!-- Background Blobs (warm, 3 only for perf) -->
+    <!-- Background Blobs -->
     <div class="bg-blobs">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -1531,7 +1536,7 @@
 
         <!-- HERO -->
         <section class="hero" id="home">
-            <div class="hero-badge">
+            <div class="hero-badge" id="heroBadge">
                 <span class="dot"></span>
                 FLL Robotics Team 2026
             </div>
@@ -1554,6 +1559,9 @@
                 <h2 class="section-title">About Us</h2>
             </div>
             <div class="about-content glass glass-accent reveal stagger-1">
+                <span class="glass-shimmer"></span>
+                <span class="glass-highlight-bar"></span>
+                <span class="about-quote-mark" aria-hidden="true">&ldquo;</span>
                 <p class="about-text">TIS Phantom Shadow had a demanding and unforgettable 2025 season, earning the opportunity to compete at both Regionals and Nationals through months of hard work, innovation, and teamwork. While reaching these competitions was a major achievement, the journey was far from easy. At both Regionals and Nationals, many failures occurred — robots didn't always perform as planned, pressure was high, and unexpected problems arose at critical moments. These setbacks were frustrating and challenging, but they pushed the team to think deeper, adapt faster, and support one another through tough situations. Rather than seeing these moments as defeats, TIS Phantom Shadow chose to view them as valuable lessons. The experiences from 2025 highlighted areas for improvement in preparation, strategy, and execution. With renewed motivation and a clearer vision, TIS Phantom Shadow have made the decision to return in 2026 stronger than ever, determined to learn from the past, refine their skills, and strive for greater success together.</p>
             </div>
         </section>
@@ -1567,9 +1575,15 @@
             </div>
 
             <div class="team-grid">
-                <!-- Custom Classes (card-[name]) Added for Hover Easter Eggs -->
                 <div class="team-card glass reveal stagger-1 card-nathaniel">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="card-egg">
+                        <div class="card-egg-a"></div>
+                        <div class="card-egg-b"></div>
+                    </div>
                     <div class="card-photo">
+                        <div class="card-photo-ring"></div>
                         <img src="images/Nathaniel.png" alt="Nathaniel Person" loading="lazy">
                     </div>
                     <h3 class="card-name">Nathaniel Person</h3>
@@ -1578,7 +1592,14 @@
                 </div>
 
                 <div class="team-card glass reveal stagger-2 card-kevin">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="card-egg">
+                        <div class="card-egg-a"></div>
+                        <div class="card-egg-b"></div>
+                    </div>
                     <div class="card-photo">
+                        <div class="card-photo-ring"></div>
                         <img src="images/Kevin.png" alt="Kevin Lo" loading="lazy">
                     </div>
                     <h3 class="card-name">Kevin Lo</h3>
@@ -1587,7 +1608,15 @@
                 </div>
 
                 <div class="team-card glass reveal stagger-3 card-liam">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="card-egg">
+                        <div class="card-egg-a">
+                            <div class="card-egg-scroll">01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001</div>
+                        </div>
+                    </div>
                     <div class="card-photo">
+                        <div class="card-photo-ring"></div>
                         <img src="images/Liam.png" alt="Liam Watson" loading="lazy">
                     </div>
                     <h3 class="card-name">Liam Watson</h3>
@@ -1596,7 +1625,14 @@
                 </div>
 
                 <div class="team-card glass reveal stagger-4 card-nixon">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="card-egg">
+                        <div class="card-egg-a"></div>
+                        <div class="card-egg-b"></div>
+                    </div>
                     <div class="card-photo">
+                        <div class="card-photo-ring"></div>
                         <img src="images/Nixon.png" alt="Nixon" loading="lazy">
                     </div>
                     <h3 class="card-name">Nixon</h3>
@@ -1605,7 +1641,13 @@
                 </div>
 
                 <div class="team-card glass reveal stagger-1 card-kian">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="card-egg">
+                        <div class="card-egg-a"></div>
+                    </div>
                     <div class="card-photo">
+                        <div class="card-photo-ring"></div>
                         <img src="images/Kian.png" alt="Kian" loading="lazy">
                     </div>
                     <h3 class="card-name">Kian</h3>
@@ -1614,7 +1656,14 @@
                 </div>
 
                 <div class="team-card glass reveal stagger-2 card-conner">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="card-egg">
+                        <div class="card-egg-a"></div>
+                        <div class="card-egg-b"></div>
+                    </div>
                     <div class="card-photo">
+                        <div class="card-photo-ring"></div>
                         <img src="images/Conner.png" alt="Conner" loading="lazy">
                     </div>
                     <h3 class="card-name">Conner</h3>
@@ -1632,10 +1681,13 @@
             </div>
 
             <div class="robot-frame reveal-scale stagger-1">
+                <div class="robot-frame-overlay"></div>
                 <img src="images/Botmobile.png" alt="Botmobile" loading="lazy">
             </div>
 
             <div class="robot-desc glass glass-accent reveal stagger-2">
+                <span class="glass-shimmer"></span>
+                <span class="glass-highlight-bar"></span>
                 <p>Our robot, <span class="robot-name">"Botmobile"</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Botmobile can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds.</p>
             </div>
         </section>
@@ -1649,6 +1701,8 @@
 
             <div class="achievement-grid">
                 <div class="achievement-card glass reveal stagger-1">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
                     <div class="achievement-icon">
                         <i class="fas fa-trophy"></i>
                     </div>
@@ -1657,6 +1711,8 @@
                 </div>
 
                 <div class="achievement-card glass reveal stagger-2">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
                     <div class="achievement-icon">
                         <i class="fas fa-lightbulb"></i>
                     </div>
@@ -1665,6 +1721,8 @@
                 </div>
 
                 <div class="achievement-card glass reveal stagger-3">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
                     <div class="achievement-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -1685,8 +1743,12 @@
                 <div class="timeline-line"></div>
 
                 <div class="timeline-item">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
                     <div class="timeline-card glass reveal-left">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">March 2025</div>
                         <div class="timeline-title">Team Formation</div>
                         <div class="timeline-desc">The TIS Phantom Shadow came together with a shared passion for robotics and innovation.</div>
@@ -1694,8 +1756,12 @@
                 </div>
 
                 <div class="timeline-item">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
                     <div class="timeline-card glass reveal-right">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">September 2025</div>
                         <div class="timeline-title">First Competition</div>
                         <div class="timeline-desc">We competed in our first regional tournament, gaining valuable experience and feedback.</div>
@@ -1703,8 +1769,12 @@
                 </div>
 
                 <div class="timeline-item">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
                     <div class="timeline-card glass reveal-left">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">November 2025</div>
                         <div class="timeline-title">Regionals Success</div>
                         <div class="timeline-desc">Our team placed in the top 27 at Regionals, qualifying us for the National Championship! Achieved max points of 140.</div>
@@ -1712,8 +1782,12 @@
                 </div>
 
                 <div class="timeline-item">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
                     <div class="timeline-card glass reveal-right">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">December 2025</div>
                         <div class="timeline-title">National Championship</div>
                         <div class="timeline-desc">Proud of our achievements — achieved max points of 230, a 90-point increase from Regionals!</div>
@@ -1721,8 +1795,12 @@
                 </div>
 
                 <div class="timeline-item">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
                     <div class="timeline-card glass reveal-left">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">January 2026</div>
                         <div class="timeline-title">2026 Comeback</div>
                         <div class="timeline-desc">Preparing for 2026 competitions with our new bot, BOT MOBILE. We are excited to see what we can accomplish this year.</div>
@@ -1736,6 +1814,8 @@
     <!-- FOOTER -->
     <footer id="contact">
         <div class="footer-glass glass reveal">
+            <span class="glass-shimmer"></span>
+            <span class="glass-highlight-bar"></span>
             <div class="footer-logo">TIS PHANTOM SHADOW</div>
             <p class="footer-tagline">First Lego League Team 2026</p>
             <p class="footer-motto">2025 Tested Us · 2026 Defines Us</p>
@@ -1759,6 +1839,7 @@
 
             /* ─── HERO TITLE CHAR SPLIT ─── */
             const heroTitle = document.getElementById('heroTitle');
+            let maxCharDelay = 0;
             if (heroTitle) {
                 const words = heroTitle.textContent.trim().split(' ');
                 heroTitle.innerHTML = '';
@@ -1774,34 +1855,47 @@
                         const c = document.createElement('span');
                         c.className = 'char';
                         c.textContent = ch;
-                        c.style.animationDelay = `${.6+ci*.04}s`;
+                        const delay = .6 + ci * .04;
+                        c.style.animationDelay = `${delay}s`;
+                        maxCharDelay = Math.max(maxCharDelay, delay);
                         s.appendChild(c);
                         ci++;
                     });
                     heroTitle.appendChild(s);
                 });
+
+                /* After charIn completes, add gradShift to gradient chars */
+                const charInDuration = 700; // .7s
+                const totalCharInMs = (maxCharDelay * 1000) + charInDuration + 100;
+                setTimeout(() => {
+                    heroTitle.querySelectorAll('.word-phantom .char, .word-shadow .char').forEach(c => {
+                        c.classList.add('anim-ready');
+                    });
+                }, totalCharInMs);
             }
 
-            /* ─── CURSOR GLOW (throttled) ─── */
+            /* ─── HERO BADGE: switch from fadeUp to micro-float after entry ─── */
+            const heroBadge = document.getElementById('heroBadge');
+            if (heroBadge) {
+                // fadeUp is .8s with .5s delay = completes at 1.3s
+                setTimeout(() => {
+                    heroBadge.classList.add('float-active');
+                }, 1400);
+            }
+
+            /* ─── CURSOR GLOW (faster lerp) ─── */
             const glow = document.getElementById('cursorGlow');
-            let mx = 0,
-                my = 0,
-                gx = 0,
-                gy = 0;
+            let mx = 0, my = 0, gx = 0, gy = 0;
             document.addEventListener('mousemove', e => {
                 mx = e.clientX;
-                my = e.clientY
-            }, {
-                passive: true
-            });
-
-            let glowFrame;
+                my = e.clientY;
+            }, { passive: true });
 
             function tickGlow() {
-                gx += (mx - gx) * .07;
-                gy += (my - gy) * .07;
-                glow.style.transform = `translate3d(${gx-175}px,${gy-175}px,0)`;
-                glowFrame = requestAnimationFrame(tickGlow);
+                gx += (mx - gx) * .15;
+                gy += (my - gy) * .15;
+                glow.style.transform = `translate3d(${gx - 175}px,${gy - 175}px,0)`;
+                requestAnimationFrame(tickGlow);
             }
             tickGlow();
 
@@ -1809,12 +1903,9 @@
             const revEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
             const revObs = new IntersectionObserver(entries => {
                 entries.forEach(e => {
-                    if (e.isIntersecting) e.target.classList.add('revealed')
+                    if (e.isIntersecting) e.target.classList.add('revealed');
                 });
-            }, {
-                threshold: .1,
-                rootMargin: '0px 0px -30px 0px'
-            });
+            }, { threshold: .1, rootMargin: '0px 0px -30px 0px' });
             revEls.forEach(el => revObs.observe(el));
 
             /* ─── NAV ACTIVE STATE (throttled) ─── */
@@ -1832,27 +1923,17 @@
                 navTick = false;
             }
             window.addEventListener('scroll', () => {
-                if (!navTick) {
-                    navTick = true;
-                    requestAnimationFrame(updateNav)
-                }
-            }, {
-                passive: true
-            });
+                if (!navTick) { navTick = true; requestAnimationFrame(updateNav); }
+            }, { passive: true });
             updateNav();
 
             /* ─── BACK TO TOP ─── */
             const btt = document.getElementById('backToTop');
             window.addEventListener('scroll', () => {
                 btt.classList.toggle('visible', window.scrollY > 500);
-            }, {
-                passive: true
-            });
+            }, { passive: true });
             btt.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
             /* ─── MOBILE MENU ─── */
@@ -1869,23 +1950,22 @@
                     const t = document.querySelector(a.getAttribute('href'));
                     if (!t) return;
                     const off = t.getBoundingClientRect().top + window.scrollY - 80;
-                    window.scrollTo({
-                        top: off,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: off, behavior: 'smooth' });
                     mobileMenu.classList.remove('open');
                 });
             });
 
-            /* ─── AUTO-SCROLL ─── */
-            let autoDir = 1,
-                autoSpeed = 3.5,
-                autoRunning = true,
-                autoRaf = null;
+            /* ─── AUTO-SCROLL with user-interaction pause ─── */
+            let autoDir = 1, autoSpeed = 3.5, autoRunning = true, autoRaf = null;
+            let userScrollTimeout = null;
+            let userScrolling = false;
             const indicator = document.getElementById('scrollIndicator');
 
             function autoScroll() {
-                if (!autoRunning) return;
+                if (!autoRunning || userScrolling) {
+                    autoRaf = requestAnimationFrame(autoScroll);
+                    return;
+                }
                 window.scrollBy(0, autoSpeed * autoDir);
                 const top = window.scrollY;
                 const maxS = document.documentElement.scrollHeight - window.innerHeight;
@@ -1895,30 +1975,35 @@
             }
             autoScroll();
 
+            /* Detect user scroll (wheel/touch) to temporarily pause auto-scroll */
+            function onUserScroll() {
+                userScrolling = true;
+                clearTimeout(userScrollTimeout);
+                userScrollTimeout = setTimeout(() => { userScrolling = false; }, 2000);
+            }
+            window.addEventListener('wheel', onUserScroll, { passive: true });
+            window.addEventListener('touchmove', onUserScroll, { passive: true });
+
             document.addEventListener('keydown', e => {
                 const k = e.key.toLowerCase();
                 if (k === 'e') {
                     autoRunning = !autoRunning;
                     if (autoRunning) {
-                        autoScroll();
+                        if (!autoRaf) autoScroll();
                         indicator.classList.add('active');
                         indicator.textContent = '● Auto-scroll  |  Press E to toggle';
                     } else {
-                        if (autoRaf) {
-                            cancelAnimationFrame(autoRaf);
-                            autoRaf = null
-                        }
                         indicator.classList.remove('active');
                         indicator.textContent = '○ Paused  |  Press E to toggle';
                     }
                 }
-                if (e.key === 'ArrowUp') autoDir = -1;
-                if (e.key === 'ArrowDown') autoDir = 1;
+                if (e.key === 'ArrowUp') { autoDir = -1; onUserScroll(); }
+                if (e.key === 'ArrowDown') { autoDir = 1; onUserScroll(); }
                 if (e.key === '+' || e.key === '=') autoSpeed = Math.min(7, autoSpeed + .35);
                 if (e.key === '-') autoSpeed = Math.max(.3, autoSpeed - .35);
             });
 
-            /* ─── CLICK SPARK (simplified canvas) ─── */
+            /* ─── CLICK SPARK (canvas — single effect, no burst duplication) ─── */
             const sparkLayer = document.getElementById('sparkLayer');
             const sCanvas = document.createElement('canvas');
             sCanvas.style.cssText = 'width:100%;height:100%;display:block;pointer-events:none';
@@ -1938,17 +2023,17 @@
             function drawSparks(ts) {
                 sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
                 sparks = sparks.filter(s => {
-                    const t = (ts - s.t) / 450;
+                    const t = (ts - s.t) / 420;
                     if (t > 1) return false;
                     const ease = t * (2 - t);
-                    const dist = ease * 36 * s.sc;
-                    const len = 12 * (1 - ease) * s.sc;
+                    const dist = ease * 42 * s.sc;
+                    const len = 14 * (1 - ease) * s.sc;
                     const x1 = s.x + dist * Math.cos(s.a);
                     const y1 = s.y + dist * Math.sin(s.a);
                     const x2 = s.x + (dist + len) * Math.cos(s.a);
                     const y2 = s.y + (dist + len) * Math.sin(s.a);
-                    sCtx.strokeStyle = `rgba(255,210,170,${1-ease})`;
-                    sCtx.lineWidth = 1.5;
+                    sCtx.strokeStyle = `rgba(255,210,170,${.85*(1-ease)})`;
+                    sCtx.lineWidth = 1.8;
                     sCtx.lineCap = 'round';
                     sCtx.beginPath();
                     sCtx.moveTo(x1, y1);
@@ -1960,49 +2045,23 @@
             }
             requestAnimationFrame(drawSparks);
 
+            /* Single click handler — canvas sparks only (removed CSS burst duplication) */
             document.addEventListener('pointerdown', e => {
                 if (e.pointerType === 'mouse' && e.button !== 0) return;
                 const now = performance.now();
-                for (let i = 0; i < 12; i++) {
+                const count = 10;
+                for (let i = 0; i < count; i++) {
                     sparks.push({
                         x: e.clientX,
                         y: e.clientY,
-                        a: (Math.PI * 2 * i) / 12 + (Math.random() - .5) * .3,
+                        a: (Math.PI * 2 * i) / count + (Math.random() - .5) * .4,
                         t: now,
-                        sc: .65 + Math.random() * .55
+                        sc: .6 + Math.random() * .6
                     });
                 }
-            }, {
-                passive: true
-            });
+            }, { passive: true });
 
-            /* ─── CLICK BURST (CSS lines) ─── */
-            let lastBurst = 0;
-            window.addEventListener('pointerdown', e => {
-                const now = performance.now();
-                if (now - lastBurst < 60) return;
-                lastBurst = now;
-                if (e.pointerType === 'mouse' && e.button !== 0) return;
-
-                const c = document.createElement('div');
-                c.className = '__burst';
-                c.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;transform:translate(-50%,-50%)`;
-                document.body.appendChild(c);
-
-                for (let i = 0; i < 8; i++) {
-                    const l = document.createElement('div');
-                    l.className = '__bline';
-                    l.style.setProperty('--a', `${(360/8)*i}deg`);
-                    l.style.animation = '__bshoot 380ms ease-out forwards';
-                    c.appendChild(l);
-                }
-                setTimeout(() => c.remove(), 450);
-            }, {
-                passive: true,
-                capture: true
-            });
-
-            /* ─── BLOB PARALLAX (throttled) ─── */
+            /* ─── BLOB PARALLAX — via CSS custom properties (preserves keyframe animations) ─── */
             const blobs = document.querySelectorAll('.blob');
             let scrollTick = false;
             window.addEventListener('scroll', () => {
@@ -2011,14 +2070,13 @@
                     requestAnimationFrame(() => {
                         const sy = window.scrollY;
                         blobs.forEach((b, i) => {
-                            b.style.transform = `translate3d(0,${sy*(.015+i*.012)}px,0)`;
+                            const offset = sy * (.015 + i * .012);
+                            b.style.setProperty('--py', offset + 'px');
                         });
                         scrollTick = false;
                     });
                 }
-            }, {
-                passive: true
-            });
+            }, { passive: true });
 
         })();
     </script>
