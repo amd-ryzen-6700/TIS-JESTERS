@@ -916,30 +916,39 @@
         .card-kevin:hover .card-egg-a { opacity: 0.2; transform: translateY(-30px) scale(1.3) rotate(-5deg); }
         .card-kevin:hover .card-egg-b { opacity: 0.2; transform: translateY(-40px) scale(1.6) rotate(10deg); }
 
-        /* Liam: Binary Code */
-        .card-liam .card-egg-a {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            font-family: monospace;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #4af626;
-            opacity: 0;
-            line-height: 1.6;
-            text-align: justify;
-            word-break: break-all;
-            overflow: hidden;
-            padding: 10px;
-            transition: opacity 0.4s;
-        }
-        .card-liam:hover .card-egg-a { opacity: 0.04; }
-        .card-liam .card-egg-scroll {
-            animation: liamBinary 10s linear infinite;
-        }
-        @keyframes liamBinary { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+/* Liam: Binary Code - Tech Overlay Version */
+.card-liam .card-egg-a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: #4af626;      /* Bright Matrix Green */
+    opacity: 0;          /* Hidden by default */
+    line-height: 1.6;
+    text-align: justify;
+    word-break: break-all;
+    overflow: hidden;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0); /* Background starts transparent */
+    transition: opacity 0.4s, background-color 0.4s; /* Smooth transition for both text and background */
+}
+
+.card-liam:hover .card-egg-a {
+    opacity: 0.7;                       /* Increased opacity so text is crisp */
+    background-color: rgba(0, 0, 0, 0.85); /* Dark overlay to make green pop */
+}
+
+.card-liam .card-egg-scroll {
+    animation: liamBinary 10s linear infinite;
+}
+
+@keyframes liamBinary {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
 
         /* Nixon: Nintendo Switches */
 .card-nixon .card-egg-a,
