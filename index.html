@@ -942,21 +942,39 @@
         @keyframes liamBinary { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
         /* Nixon: Nintendo Switches */
-        .card-nixon .card-egg-a,
-        .card-nixon .card-egg-b {
-            position: absolute;
-            width: 50px;
-            height: 22px;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #00c3e3 25%, #222 25%, #222 75%, #ff003c 75%);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            opacity: 0;
-            transition: all 0.6s var(--ease-spring);
-        }
-        .card-nixon .card-egg-a { bottom: 10px; left: 10px; transform: translateY(40px) rotate(-30deg) scale(0.5); }
-        .card-nixon .card-egg-b { top: 10px; right: 10px; left: auto; transform: translateY(-40px) rotate(45deg) scale(0.5); }
-        .card-nixon:hover .card-egg-a { opacity: 0.3; transform: translateY(-20px) rotate(-15deg) scale(1); }
-        .card-nixon:hover .card-egg-b { opacity: 0.3; transform: translateY(20px) rotate(20deg) scale(1.2); }
+.card-nixon .card-egg-a,
+.card-nixon .card-egg-b {
+    position: absolute;
+    width: 50px;
+    height: 22px;
+    background: url("images/Nintendo Switch.png") no-repeat center / contain;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+    opacity: 0;
+    transition: all 0.6s var(--ease-spring);
+}
+
+.card-nixon .card-egg-a {
+    bottom: 10px;
+    left: 10px;
+    transform: translateY(40px) rotate(-30deg) scale(0.5);
+}
+
+.card-nixon .card-egg-b {
+    top: 10px;
+    right: 10px;
+    left: auto;
+    transform: translateY(-40px) rotate(45deg) scale(0.5);
+}
+
+.card-nixon:hover .card-egg-a {
+    opacity: 0.3;
+    transform: translateY(-20px) rotate(-15deg) scale(1);
+}
+
+.card-nixon:hover .card-egg-b {
+    opacity: 0.3;
+    transform: translateY(20px) rotate(20deg) scale(1.2);
+}
 
         /* Kian: Lifting Dumbbells */
         .card-kian .card-egg-a {
