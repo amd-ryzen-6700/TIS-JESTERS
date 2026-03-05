@@ -15,17 +15,13 @@
     <style>
         :root {
             --primary: #e25535;
-            --primary-soft: rgba(226, 85, 53, .45);
             --amber: #f0a030;
-            --amber-soft: rgba(240, 160, 48, .45);
             --gold: #ffd699;
-            --warm-orange: #ff8844;
             --rose: #e0506a;
             --terracotta: #d07040;
 
             --bg-deep: #060302;
             --bg-warm: #0e0806;
-            --bg-card: rgba(30, 18, 12, .55);
 
             --glass-bg: rgba(255, 190, 140, .025);
             --glass-bg-hover: rgba(255, 190, 140, .06);
@@ -89,7 +85,6 @@
 
         body.menu-open {
             overflow: hidden;
-            overflow-x: hidden;
         }
 
         .bg-blobs {
@@ -147,6 +142,7 @@
         }
 
         @keyframes drift-a {
+
             0%,
             100% {
                 transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
@@ -158,6 +154,7 @@
         }
 
         @keyframes drift-b {
+
             0%,
             100% {
                 transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
@@ -169,6 +166,7 @@
         }
 
         @keyframes drift-c {
+
             0%,
             100% {
                 transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
@@ -180,6 +178,7 @@
         }
 
         @keyframes drift-d {
+
             0%,
             100% {
                 transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
@@ -325,7 +324,6 @@
             background: linear-gradient(90deg, transparent, rgba(255, 210, 160, .18), transparent);
             pointer-events: none;
             z-index: 1;
-            transition: opacity .4s;
         }
 
         .glass:hover {
@@ -339,10 +337,6 @@
             transform: translateY(-4px);
         }
 
-        .glass:hover>.glass-highlight-bar {
-            opacity: 1;
-        }
-
         .glass-accent {
             background: rgba(255, 190, 140, .04);
             border-color: rgba(255, 190, 130, .12);
@@ -351,15 +345,6 @@
                 0 0 60px rgba(240, 160, 48, .03),
                 inset 0 1px 0 rgba(255, 235, 210, .12),
                 inset 0 0 60px rgba(255, 180, 120, .02);
-        }
-
-        .glass-accent:hover {
-            border-color: rgba(255, 175, 100, .28);
-            box-shadow:
-                0 24px 64px rgba(0, 0, 0, .6),
-                0 0 90px rgba(240, 160, 48, .06),
-                inset 0 1px 0 rgba(255, 235, 210, .2),
-                inset 0 0 80px rgba(255, 180, 120, .03);
         }
 
         nav {
@@ -382,14 +367,6 @@
             max-width: 92vw;
         }
 
-        nav:hover {
-            border-color: rgba(255, 190, 130, .14);
-            box-shadow:
-                0 12px 40px rgba(0, 0, 0, .6),
-                0 0 50px rgba(240, 160, 48, .04),
-                inset 0 1px 0 rgba(255, 230, 200, .1);
-        }
-
         .nav-inner {
             display: flex;
             align-items: center;
@@ -408,11 +385,6 @@
             color: transparent;
             white-space: nowrap;
             margin-right: 14px;
-            transition: filter .3s var(--micro);
-        }
-
-        .logo:hover {
-            filter: brightness(1.2);
         }
 
         .nav-divider {
@@ -468,12 +440,74 @@
             background: rgba(240, 160, 48, .1);
         }
 
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            cursor: pointer;
+            padding: 7px;
+            border-radius: 8px;
+            transition: background .3s;
+        }
+
+        .mobile-toggle:hover {
+            background: rgba(255, 190, 130, .08);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            padding: 80px 24px 32px;
+            background: rgba(10, 6, 4, .92);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(255, 190, 130, .08);
+            transform: translateY(-100%);
+            transition: transform .5s var(--ease-out-expo);
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 190, 130, .04);
+            transition: color .3s, padding-left .3s var(--ease-spring);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--amber);
+            padding-left: 8px;
+        }
+
         .main-content {
             position: relative;
             z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        section[id] {
+            scroll-margin-top: 100px;
         }
 
         .hero {
@@ -563,7 +597,6 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0;
         }
 
         .hero-title .word-wrap {
@@ -582,7 +615,6 @@
             background-clip: text;
             color: transparent;
             transition: text-shadow .3s, transform .3s var(--ease-spring);
-            cursor: default;
         }
 
         .hero-title .char:hover {
@@ -726,14 +758,6 @@
             }
         }
 
-        section {
-            padding: 80px 0;
-        }
-
-        section[id] {
-            scroll-margin-top: 100px;
-        }
-
         .section-header {
             text-align: center;
             margin-bottom: 56px;
@@ -751,12 +775,6 @@
             border-radius: 100px;
             background: rgba(240, 160, 48, .06);
             border: 1px solid rgba(240, 160, 48, .12);
-            transition: all .3s var(--micro);
-        }
-
-        .section-label:hover {
-            background: rgba(240, 160, 48, .1);
-            border-color: rgba(240, 160, 48, .2);
         }
 
         .section-title {
@@ -827,11 +845,6 @@
             isolation: isolate;
         }
 
-        .team-card>*:not(.card-egg):not(.glass-shimmer):not(.glass-highlight-bar) {
-            position: relative;
-            z-index: 2;
-        }
-
         .team-card:hover {
             transform: translateY(-8px) scale(1.008);
         }
@@ -868,6 +881,30 @@
             50% {
                 background-position: 100% 50%;
             }
+        }
+
+        .card-egg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+            border-radius: inherit;
+        }
+
+        .card-egg,
+        .card-egg * {
+            pointer-events: none;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
         }
 
         .card-photo {
@@ -963,20 +1000,6 @@
             background: rgba(255, 190, 130, .025);
         }
 
-        .card-egg {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-            border-radius: inherit;
-        }
-
-        .card-egg,
-        .card-egg * {
-            pointer-events: none;
-        }
-
         .card-nathaniel .card-egg-a {
             position: absolute;
             top: -100%;
@@ -1066,21 +1089,52 @@
             position: absolute;
             inset: 0;
             font-family: monospace;
-            font-size: 1.2rem;
-            color: #4af626;
-            opacity: 0;
+            font-size: 1.15rem;
+            color: rgba(74, 246, 38, 0.30);
             line-height: 1.6;
-            text-align: justify;
             word-break: break-all;
             overflow: hidden;
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0);
+            padding: 12px;
+            opacity: 0;
+            background: rgba(0, 0, 0, 0);
             transition: opacity 0.4s ease, background-color 0.4s ease;
         }
 
         .card-liam:hover .card-egg-a {
-            opacity: 0.35;
-            background-color: rgba(0, 0, 0, 0.88);
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.88);
+        }
+
+        .card-liam .card-content::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border-radius: 24px;
+            background: linear-gradient(180deg,
+                    rgba(6, 3, 2, 0.96) 0%,
+                    rgba(6, 3, 2, 0.76) 35%,
+                    rgba(6, 3, 2, 0.90) 100%);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .card-liam:hover .card-content::before {
+            opacity: 1;
+        }
+
+        .card-liam .card-photo,
+        .card-liam .card-name,
+        .card-liam .card-role,
+        .card-liam .card-bio {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-liam .card-bio {
+            background: rgba(6, 3, 2, 0.90);
+            border-color: rgba(74, 246, 38, 0.08);
         }
 
         .card-liam .card-egg-scroll {
@@ -1206,9 +1260,14 @@
             text-align: center;
         }
 
+        .robot-gallery {
+            max-width: 860px;
+            margin: 0 auto 34px;
+        }
+
         .robot-frame {
-            max-width: 500px;
-            margin: 0 auto 40px;
+            max-width: 620px;
+            margin: 0 auto 22px;
             border-radius: var(--radius-lg);
             overflow: hidden;
             border: 1px solid rgba(255, 190, 130, .07);
@@ -1219,14 +1278,6 @@
             position: relative;
         }
 
-        .robot-frame-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(6, 3, 2, .45) 100%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
         .robot-frame:hover {
             transform: scale(1.02) translateY(-4px);
             border-color: rgba(240, 160, 48, .25);
@@ -1235,14 +1286,77 @@
                 0 0 120px rgba(240, 160, 48, .08);
         }
 
+        .robot-frame-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(6, 3, 2, .45) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
         .robot-frame img {
             width: 100%;
             display: block;
             transition: transform .5s var(--ease-out-expo);
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            background: rgba(255, 190, 130, .02);
         }
 
         .robot-frame:hover img {
             transform: scale(1.04);
+        }
+
+        .robot-thumbs {
+            padding: 18px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+            gap: 14px;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .robot-thumbs>*:not(.glass-shimmer):not(.glass-highlight-bar) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .robot-thumb {
+            appearance: none;
+            border: 1px solid rgba(255, 190, 130, .08);
+            background: rgba(255, 190, 130, .02);
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .35s var(--ease-out-expo);
+            aspect-ratio: 1 / 1;
+            padding: 0;
+        }
+
+        .robot-thumb img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .robot-thumb:hover {
+            transform: translateY(-3px);
+            border-color: rgba(240, 160, 48, .2);
+            box-shadow: 0 0 20px rgba(240, 160, 48, .08);
+        }
+
+        .robot-thumb.active {
+            border-color: rgba(240, 160, 48, .35);
+            box-shadow: 0 0 30px rgba(240, 160, 48, .14);
+            transform: translateY(-2px);
+        }
+
+        .robot-caption {
+            margin-top: 16px;
+            color: var(--text-dim);
+            font-size: .9rem;
+            letter-spacing: 1px;
         }
 
         .robot-desc {
@@ -1261,11 +1375,6 @@
             color: var(--amber);
             font-weight: 600;
             text-shadow: 0 0 18px rgba(240, 160, 48, .25);
-            transition: text-shadow .3s;
-        }
-
-        .robot-name:hover {
-            text-shadow: 0 0 28px rgba(240, 160, 48, .4);
         }
 
         .achievement-grid {
@@ -1337,11 +1446,6 @@
             font-weight: 600;
             margin-bottom: 10px;
             color: var(--text-primary);
-            transition: color .3s;
-        }
-
-        .achievement-card:hover h3 {
-            color: var(--gold);
         }
 
         .achievement-card p {
@@ -1411,7 +1515,6 @@
             transform: translateX(-50%);
             z-index: 3;
             box-shadow: 0 0 18px rgba(240, 160, 48, .45);
-            transition: all .3s;
         }
 
         .timeline-dot-ring {
@@ -1630,60 +1733,6 @@
             box-shadow: 0 0 25px rgba(240, 160, 48, .1);
         }
 
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.15rem;
-            cursor: pointer;
-            padding: 7px;
-            border-radius: 8px;
-            transition: background .3s;
-        }
-
-        .mobile-toggle:hover {
-            background: rgba(255, 190, 130, .08);
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            padding: 80px 24px 32px;
-            background: rgba(10, 6, 4, .92);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-bottom: 1px solid rgba(255, 190, 130, .08);
-            transform: translateY(-100%);
-            transition: transform .5s var(--ease-out-expo);
-            max-height: 100vh;
-            overflow-y: auto;
-        }
-
-        .mobile-menu.open {
-            transform: translateY(0);
-        }
-
-        .mobile-menu a {
-            display: block;
-            padding: 14px 0;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 190, 130, .04);
-            transition: color .3s, padding-left .3s var(--ease-spring);
-        }
-
-        .mobile-menu a:hover {
-            color: var(--amber);
-            padding-left: 8px;
-        }
-
         @media (prefers-reduced-motion: reduce) {
 
             *,
@@ -1774,6 +1823,10 @@
                 font-size: .6rem;
                 padding: 5px 10px;
             }
+
+            .robot-thumbs {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         @media (max-width: 480px) {
@@ -1790,8 +1843,10 @@
                 height: 120px;
             }
 
-            .team-grid {
-                grid-template-columns: 1fr;
+            .robot-thumbs {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                padding: 14px;
             }
         }
     </style>
@@ -1903,16 +1958,17 @@
                         <div class="card-egg-b"></div>
                     </div>
 
-                    <div class="card-photo">
-                        <div class="card-photo-ring"></div>
-                        <img src="images/Nathaniel.png" alt="Nathaniel Person" loading="lazy">
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Nathaniel.png" alt="Nathaniel Person" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Nathaniel Person</h3>
+                        <p class="card-role">Lead Builder · Lead Researcher</p>
+                        <p class="card-bio">
+                            My name is Nathaniel, and I am a builder, innovation team member, and researcher for the TIS Phantom Shadow FLL team. I help design and build the robot while also researching ideas and contributing to our innovation project. I enjoy learning new things and working with my team to turn ideas into real solutions.
+                        </p>
                     </div>
-
-                    <h3 class="card-name">Nathaniel Person</h3>
-                    <p class="card-role">Lead Builder · Lead Researcher</p>
-                    <p class="card-bio">
-                        My name is Nathaniel, and I am a builder, innovation team member, and researcher for the TIS Phantom Shadow FLL team. I help design and build the robot while also researching ideas and contributing to our innovation project. I enjoy learning new things and working with my team to turn ideas into real solutions.
-                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-2 card-kevin">
@@ -1924,16 +1980,17 @@
                         <div class="card-egg-b"></div>
                     </div>
 
-                    <div class="card-photo">
-                        <div class="card-photo-ring"></div>
-                        <img src="images/Kevin.png" alt="Kevin Lo" loading="lazy">
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Kevin.png" alt="Kevin Lo" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Kevin Lo</h3>
+                        <p class="card-role">Team Captain · Co-Coder · Co-Builder · Lead Innovation</p>
+                        <p class="card-bio">
+                            My name is Kevin, and I am the captain of the TIS Phantom Shadow FLL team. I work as a co-coder and co-builder, helping to design, build, and program our robot. I enjoy leading my team, solving challenges together, and pushing our robot to perform at its best.
+                        </p>
                     </div>
-
-                    <h3 class="card-name">Kevin Lo</h3>
-                    <p class="card-role">Team Captain · Co-Coder · Co-Builder · Lead Innovation</p>
-                    <p class="card-bio">
-                        My name is Kevin, and I am the captain of the TIS Phantom Shadow FLL team. I work as a co-coder and co-builder, helping to design, build, and program our robot. I enjoy leading my team, solving challenges together, and pushing our robot to perform at its best.
-                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-3 card-liam">
@@ -1943,21 +2000,25 @@
                     <div class="card-egg" aria-hidden="true">
                         <div class="card-egg-a">
                             <div class="card-egg-scroll">
-                                01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001
+                                01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011
+                                10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011
+                                01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100
+                                01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001
                             </div>
                         </div>
                     </div>
 
-                    <div class="card-photo">
-                        <div class="card-photo-ring"></div>
-                        <img src="images/Liam.png" alt="Liam Watson" loading="lazy">
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Liam.png" alt="Liam Watson" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Liam Watson</h3>
+                        <p class="card-role">Co-Captain · Lead Coder · Co-Innovation · Co-Researcher</p>
+                        <p class="card-bio">
+                            My name is Liam, and I am the co-captain of the TIS Phantom Shadow FLL team. I work as a coder and co-innovation lead, helping to program our robot and develop creative solutions for our innovation project. I enjoy collaborating with my team and contributing ideas that help us succeed.
+                        </p>
                     </div>
-
-                    <h3 class="card-name">Liam Watson</h3>
-                    <p class="card-role">Co-Captain · Lead Coder · Co-Innovation · Co-Researcher</p>
-                    <p class="card-bio">
-                        My name is Liam, and I am the co-captain of the TIS Phantom Shadow FLL team. I work as a coder and co-innovation lead, helping to program our robot and develop creative solutions for our innovation project. I enjoy collaborating with my team and contributing ideas that help us succeed.
-                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-4 card-nixon">
@@ -1969,16 +2030,17 @@
                         <div class="card-egg-b"></div>
                     </div>
 
-                    <div class="card-photo">
-                        <div class="card-photo-ring"></div>
-                        <img src="images/Nixon.png" alt="Nixon" loading="lazy">
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Nixon.png" alt="Nixon" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Nixon</h3>
+                        <p class="card-role">Co-Builder · Innovation Team</p>
+                        <p class="card-bio">
+                            My name is Nixon, and I am a co-builder and innovation team member for the TIS Phantom Shadow FLL team. I help construct the robot attachments and brainstorm creative ideas for our project. I enjoy working hands-on and problem-solving with my teammates.
+                        </p>
                     </div>
-
-                    <h3 class="card-name">Nixon</h3>
-                    <p class="card-role">Co-Builder · Innovation Team</p>
-                    <p class="card-bio">
-                        My name is Nixon, and I am a co-builder and innovation team member for the TIS Phantom Shadow FLL team. I help construct the robot attachments and brainstorm creative ideas for our project. I enjoy working hands-on and problem-solving with my teammates.
-                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-1 card-kian">
@@ -1989,16 +2051,17 @@
                         <div class="card-egg-a"></div>
                     </div>
 
-                    <div class="card-photo">
-                        <div class="card-photo-ring"></div>
-                        <img src="images/Kian.png" alt="Kian" loading="lazy">
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Kian.png" alt="Kian" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Kian</h3>
+                        <p class="card-role">Co-Coder · Mission Strategist</p>
+                        <p class="card-bio">
+                            My name is Kian, and I am a co-coder and mission strategist for the TIS Phantom Shadow FLL team. I focus on programming the robot for consistent mission runs and optimizing our competition strategy. I love the challenge of making our robot perform autonomously.
+                        </p>
                     </div>
-
-                    <h3 class="card-name">Kian</h3>
-                    <p class="card-role">Co-Coder · Mission Strategist</p>
-                    <p class="card-bio">
-                        My name is Kian, and I am a co-coder and mission strategist for the TIS Phantom Shadow FLL team. I focus on programming the robot for consistent mission runs and optimizing our competition strategy. I love the challenge of making our robot perform autonomously.
-                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-2 card-conner">
@@ -2010,16 +2073,17 @@
                         <div class="card-egg-b"></div>
                     </div>
 
-                    <div class="card-photo">
-                        <div class="card-photo-ring"></div>
-                        <img src="images/Conner.png" alt="Conner" loading="lazy">
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Conner.png" alt="Conner" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Conner</h3>
+                        <p class="card-role">Researcher · Co-Builder</p>
+                        <p class="card-bio">
+                            My name is Conner, and I am a researcher and co-builder for the TIS Phantom Shadow FLL team. I dive deep into our innovation project research and assist with assembling our robot. I am passionate about learning new concepts and bringing our team's ideas to life.
+                        </p>
                     </div>
-
-                    <h3 class="card-name">Conner</h3>
-                    <p class="card-role">Researcher · Co-Builder</p>
-                    <p class="card-bio">
-                        My name is Conner, and I am a researcher and co-builder for the TIS Phantom Shadow FLL team. I dive deep into our innovation project research and assist with assembling our robot. I am passionate about learning new concepts and bringing our team's ideas to life.
-                    </p>
                 </div>
             </div>
         </section>
@@ -2030,16 +2094,57 @@
                 <h2 class="section-title">Our Robot</h2>
             </div>
 
-            <div class="robot-frame reveal-scale stagger-1">
-                <div class="robot-frame-overlay"></div>
-                <img src="images/Botmobile.png" alt="Botmobile" loading="lazy">
+            <div class="robot-gallery">
+                <div class="robot-frame reveal-scale stagger-1">
+                    <div class="robot-frame-overlay"></div>
+                    <img id="robotMainImage" src="images/Botmobile.png" alt="Botmobile main view" loading="lazy">
+                </div>
+
+                <div class="robot-thumbs glass reveal stagger-2" id="robotThumbs">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <button type="button" class="robot-thumb active" data-src="images/Botmobile.png" data-alt="Botmobile main view" data-caption="Botmobile main view">
+                        <img src="images/Botmobile.png" alt="Botmobile main view thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/1.png" data-alt="Botmobile view 1" data-caption="Botmobile view 1">
+                        <img src="images/1.png" alt="Botmobile view 1 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/2.png" data-alt="Botmobile view 2" data-caption="Botmobile view 2">
+                        <img src="images/2.png" alt="Botmobile view 2 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/3.png" data-alt="Botmobile view 3" data-caption="Botmobile view 3">
+                        <img src="images/3.png" alt="Botmobile view 3 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/4.png" data-alt="Botmobile view 4" data-caption="Botmobile view 4">
+                        <img src="images/4.png" alt="Botmobile view 4 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/5.png" data-alt="Botmobile view 5" data-caption="Botmobile view 5">
+                        <img src="images/5.png" alt="Botmobile view 5 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/6.png" data-alt="Botmobile view 6" data-caption="Botmobile view 6">
+                        <img src="images/6.png" alt="Botmobile view 6 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/7.png" data-alt="Botmobile view 7" data-caption="Botmobile view 7">
+                        <img src="images/7.png" alt="Botmobile view 7 thumbnail" loading="lazy">
+                    </button>
+                </div>
+
+                <p class="robot-caption reveal stagger-3" id="robotImageCaption">Botmobile main view</p>
             </div>
 
-            <div class="robot-desc glass glass-accent reveal stagger-2">
+            <div class="robot-desc glass glass-accent reveal stagger-4">
                 <span class="glass-shimmer"></span>
                 <span class="glass-highlight-bar"></span>
                 <p>
-                    Our robot, <span class="robot-name">Botmobile</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Botmobile can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds.
+                    Our robot, <span class="robot-name">Botmobile</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Botmobile can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds, and the gallery above shows additional views of the bot.
                 </p>
             </div>
         </section>
@@ -2054,11 +2159,9 @@
                 <div class="achievement-card glass reveal stagger-1">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-
                     <div class="achievement-icon">
                         <i class="fas fa-trophy"></i>
                     </div>
-
                     <h3>National Qualification</h3>
                     <p>We reached the national stage and competed against top teams from across the country.</p>
                 </div>
@@ -2066,11 +2169,9 @@
                 <div class="achievement-card glass reveal stagger-2">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-
                     <div class="achievement-icon">
                         <i class="fas fa-lightbulb"></i>
                     </div>
-
                     <h3>Innovation Excellence</h3>
                     <p>Recognized for creative thinking, practical problem-solving, and strong project development.</p>
                 </div>
@@ -2078,11 +2179,9 @@
                 <div class="achievement-card glass reveal stagger-3">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-
                     <div class="achievement-icon">
                         <i class="fas fa-users"></i>
                     </div>
-
                     <h3>Teamwork Excellence</h3>
                     <p>Praised for collaboration, communication, resilience, and team spirit throughout the season.</p>
                 </div>
@@ -2234,9 +2333,9 @@
                 });
 
                 setTimeout(() => {
-                    heroTitle
-                        .querySelectorAll('.word-phantom .char, .word-shadow .char')
-                        .forEach((char) => char.classList.add('anim-ready'));
+                    heroTitle.querySelectorAll('.word-phantom .char, .word-shadow .char').forEach((char) => {
+                        char.classList.add('anim-ready');
+                    });
                 }, maxCharDelay * 1000 + 900);
             }
 
@@ -2386,9 +2485,7 @@
             const updateIndicator = () => {
                 if (!indicator) return;
                 indicator.classList.toggle('active', autoRunning);
-                indicator.textContent = autoRunning ?
-                    '● Auto-scroll | Press E to toggle' :
-                    '○ Paused | Press E to toggle';
+                indicator.textContent = autoRunning ? '● Auto-scroll | Press E to toggle' : '○ Paused | Press E to toggle';
             };
 
             const pauseAutoScroll = (duration = 2200) => {
@@ -2478,6 +2575,31 @@
                     setMenuState(false);
                 });
             });
+
+            const robotMainImage = document.getElementById('robotMainImage');
+            const robotImageCaption = document.getElementById('robotImageCaption');
+            const robotThumbs = document.querySelectorAll('.robot-thumb');
+
+            if (robotMainImage && robotThumbs.length) {
+                robotThumbs.forEach((thumb) => {
+                    thumb.addEventListener('click', () => {
+                        const src = thumb.dataset.src;
+                        const alt = thumb.dataset.alt || 'Botmobile image';
+                        const caption = thumb.dataset.caption || '';
+
+                        if (!src) return;
+
+                        robotMainImage.src = src;
+                        robotMainImage.alt = alt;
+                        if (robotImageCaption) robotImageCaption.textContent = caption;
+
+                        robotThumbs.forEach((item) => item.classList.remove('active'));
+                        thumb.classList.add('active');
+
+                        pauseAutoScroll(2500);
+                    });
+                });
+            }
 
             const sparkLayer = document.getElementById('sparkLayer');
 
