@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary: #e25535;
@@ -52,7 +53,7 @@
         *::after {
             margin: 0;
             padding: 0;
-            box-sizing: border-box
+            box-sizing: border-box;
         }
 
         html {
@@ -61,10 +62,22 @@
             scrollbar-color: rgba(255, 180, 120, .12) transparent;
         }
 
-        ::-webkit-scrollbar { width: 5px }
-        ::-webkit-scrollbar-track { background: transparent }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 180, 120, .12); border-radius: 3px }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 180, 120, .25) }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 180, 120, .12);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 180, 120, .25);
+        }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -74,9 +87,11 @@
             min-height: 100vh;
         }
 
-        /* ═══════════════════════════════════════
-           BACKGROUND
-           ═══════════════════════════════════════ */
+        body.menu-open {
+            overflow: hidden;
+            overflow-x: hidden;
+        }
+
         .bg-blobs {
             position: fixed;
             inset: 0;
@@ -132,23 +147,47 @@
         }
 
         @keyframes drift-a {
-            0%, 100% { transform: translate(var(--px, 0px), var(--py, 0px)) scale(1) }
-            50% { transform: translate(calc(60px + var(--px, 0px)), calc(-40px + var(--py, 0px))) scale(1.06) }
+            0%,
+            100% {
+                transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
+            }
+
+            50% {
+                transform: translate(calc(60px + var(--px, 0px)), calc(-40px + var(--py, 0px))) scale(1.06);
+            }
         }
 
         @keyframes drift-b {
-            0%, 100% { transform: translate(var(--px, 0px), var(--py, 0px)) scale(1) }
-            50% { transform: translate(calc(-50px + var(--px, 0px)), calc(45px + var(--py, 0px))) scale(1.08) }
+            0%,
+            100% {
+                transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
+            }
+
+            50% {
+                transform: translate(calc(-50px + var(--px, 0px)), calc(45px + var(--py, 0px))) scale(1.08);
+            }
         }
 
         @keyframes drift-c {
-            0%, 100% { transform: translate(var(--px, 0px), var(--py, 0px)) scale(1) }
-            50% { transform: translate(calc(40px + var(--px, 0px)), calc(50px + var(--py, 0px))) scale(.95) }
+            0%,
+            100% {
+                transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
+            }
+
+            50% {
+                transform: translate(calc(40px + var(--px, 0px)), calc(50px + var(--py, 0px))) scale(.95);
+            }
         }
 
         @keyframes drift-d {
-            0%, 100% { transform: translate(var(--px, 0px), var(--py, 0px)) scale(1) }
-            50% { transform: translate(calc(-30px + var(--px, 0px)), calc(-35px + var(--py, 0px))) scale(1.1) }
+            0%,
+            100% {
+                transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
+            }
+
+            50% {
+                transform: translate(calc(-30px + var(--px, 0px)), calc(-35px + var(--py, 0px))) scale(1.1);
+            }
         }
 
         .vignette {
@@ -160,7 +199,6 @@
             opacity: .6;
         }
 
-        /* Noise texture overlay */
         .noise-overlay {
             position: fixed;
             inset: 0;
@@ -171,9 +209,6 @@
             background-size: 256px 256px;
         }
 
-        /* ═══════════════════════════════════════
-           CURSOR GLOW
-           ═══════════════════════════════════════ */
         .cursor-glow {
             position: fixed;
             width: 350px;
@@ -187,11 +222,10 @@
             transition: opacity .4s;
         }
 
-        body:hover .cursor-glow { opacity: 1 }
+        body:hover .cursor-glow {
+            opacity: 1;
+        }
 
-        /* ═══════════════════════════════════════
-           LOADING SCREEN
-           ═══════════════════════════════════════ */
         #loading-screen {
             position: fixed;
             inset: 0;
@@ -232,16 +266,24 @@
             animation: pulse-text 2s ease-in-out infinite;
         }
 
-        @keyframes spin { to { transform: rotate(360deg) } }
-
-        @keyframes pulse-text {
-            0%, 100% { opacity: .35 }
-            50% { opacity: 1 }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        /* ═══════════════════════════════════════
-           GLASS COMPONENT
-           ═══════════════════════════════════════ */
+        @keyframes pulse-text {
+
+            0%,
+            100% {
+                opacity: .35;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
         .glass {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--glass-blur)) saturate(150%);
@@ -258,7 +300,7 @@
             transition: all .5s var(--ease-out-expo);
         }
 
-        .glass > .glass-shimmer {
+        .glass>.glass-shimmer {
             position: absolute;
             top: 0;
             left: -110%;
@@ -270,9 +312,11 @@
             z-index: 1;
         }
 
-        .glass:hover > .glass-shimmer { left: 110% }
+        .glass:hover>.glass-shimmer {
+            left: 110%;
+        }
 
-        .glass > .glass-highlight-bar {
+        .glass>.glass-highlight-bar {
             position: absolute;
             top: 0;
             left: 10%;
@@ -295,7 +339,9 @@
             transform: translateY(-4px);
         }
 
-        .glass:hover > .glass-highlight-bar { opacity: 1 }
+        .glass:hover>.glass-highlight-bar {
+            opacity: 1;
+        }
 
         .glass-accent {
             background: rgba(255, 190, 140, .04);
@@ -316,9 +362,6 @@
                 inset 0 0 80px rgba(255, 180, 120, .03);
         }
 
-        /* ═══════════════════════════════════════
-           NAVIGATION
-           ═══════════════════════════════════════ */
         nav {
             position: fixed;
             top: 16px;
@@ -368,7 +411,9 @@
             transition: filter .3s var(--micro);
         }
 
-        .logo:hover { filter: brightness(1.2) }
+        .logo:hover {
+            filter: brightness(1.2);
+        }
 
         .nav-divider {
             width: 1px;
@@ -409,7 +454,9 @@
         }
 
         .nav-links a:hover::after,
-        .nav-links a.active::after { width: 55% }
+        .nav-links a.active::after {
+            width: 55%;
+        }
 
         .nav-links a:hover {
             color: var(--text-primary);
@@ -421,9 +468,6 @@
             background: rgba(240, 160, 48, .1);
         }
 
-        /* ═══════════════════════════════════════
-           MAIN CONTENT
-           ═══════════════════════════════════════ */
         .main-content {
             position: relative;
             z-index: 2;
@@ -432,9 +476,6 @@
             padding: 0 24px;
         }
 
-        /* ═══════════════════════════════════════
-           HERO — FIXED TITLE VISIBILITY
-           ═══════════════════════════════════════ */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -483,16 +524,31 @@
         }
 
         @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1) }
-            50% { opacity: .35; transform: scale(.55) }
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .35;
+                transform: scale(.55);
+            }
         }
 
         @keyframes micro-float {
-            0%, 100% { transform: translateY(0) }
-            50% { transform: translateY(-4px) }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
         }
 
-        /* ── HERO TITLE — key fix: ensure full visibility ── */
         .hero-title {
             font-family: 'Sora', sans-serif;
             font-size: clamp(2.8rem, 7vw, 5.5rem);
@@ -551,12 +607,22 @@
         }
 
         @keyframes charIn {
-            to { opacity: 1; transform: translateY(0) rotateX(0) }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
         }
 
         @keyframes gradShift {
-            0%, 100% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .hero-tagline {
@@ -584,8 +650,15 @@
         }
 
         @keyframes shimmer {
-            0%, 100% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .hero-values {
@@ -632,18 +705,34 @@
         }
 
         @keyframes scrollPulse {
-            0%, 100% { opacity: .25; transform: scaleY(.4); transform-origin: top }
-            50% { opacity: 1; transform: scaleY(1) }
+
+            0%,
+            100% {
+                opacity: .25;
+                transform: scaleY(.4);
+                transform-origin: top;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
         }
 
         @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0) }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* ═══════════════════════════════════════
-           SECTIONS
-           ═══════════════════════════════════════ */
-        section { padding: 80px 0 }
+        section {
+            padding: 80px 0;
+        }
+
+        section[id] {
+            scroll-margin-top: 100px;
+        }
 
         .section-header {
             text-align: center;
@@ -689,9 +778,6 @@
             line-height: 1.7;
         }
 
-        /* ═══════════════════════════════════════
-           ABOUT
-           ═══════════════════════════════════════ */
         .about-content {
             max-width: 800px;
             margin: 0 auto;
@@ -719,13 +805,11 @@
             user-select: none;
         }
 
-        /* ═══════════════════════════════════════
-           TEAM — FIXED CARDS
-           ═══════════════════════════════════════ */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
             gap: 28px;
+            align-items: stretch;
         }
 
         .team-card {
@@ -735,9 +819,15 @@
             position: relative;
             overflow: hidden;
             transition: all .5s var(--ease-out-expo);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            isolation: isolate;
         }
 
-        .team-card > *:not(.card-egg):not(.glass-shimmer):not(.glass-highlight-bar) {
+        .team-card>*:not(.card-egg):not(.glass-shimmer):not(.glass-highlight-bar) {
             position: relative;
             z-index: 2;
         }
@@ -746,7 +836,6 @@
             transform: translateY(-8px) scale(1.008);
         }
 
-        /* Subtle gradient border effect on hover */
         .team-card::before {
             content: '';
             position: absolute;
@@ -770,8 +859,15 @@
         }
 
         @keyframes borderGlow {
-            0%, 100% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .card-photo {
@@ -779,20 +875,22 @@
             height: 140px;
             margin: 0 auto 22px;
             border-radius: 50%;
-            overflow: hidden;
+            overflow: visible;
             position: relative;
             border: 2px solid rgba(255, 190, 130, .1);
             box-shadow: 0 0 40px rgba(240, 160, 48, .08);
             transition: all .5s var(--ease-out-expo);
+            flex-shrink: 0;
         }
 
         .card-photo-ring {
             position: absolute;
-            inset: -6px;
+            inset: -8px;
             border: 2px solid rgba(240, 160, 48, .0);
             border-radius: 50%;
             transition: all .5s var(--ease-out-expo);
             pointer-events: none;
+            z-index: 2;
         }
 
         .team-card:hover .card-photo {
@@ -803,14 +901,19 @@
 
         .team-card:hover .card-photo-ring {
             border-color: rgba(240, 160, 48, .15);
-            inset: -10px;
+            inset: -12px;
         }
 
         .card-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            display: block;
+            border-radius: 50%;
+            clip-path: circle(50% at 50% 50%);
             transition: transform .5s var(--ease-out-expo);
+            background: rgba(255, 190, 130, .04);
         }
 
         .team-card:hover .card-photo img {
@@ -851,6 +954,8 @@
             border: 1px solid rgba(255, 190, 130, .04);
             border-radius: var(--radius-sm);
             transition: border-color .3s var(--micro), background .3s;
+            width: 100%;
+            margin-top: auto;
         }
 
         .team-card:hover .card-bio {
@@ -858,9 +963,6 @@
             background: rgba(255, 190, 130, .025);
         }
 
-        /* ═══════════════════════════════════════
-           TEAM CARD EASTER EGGS — FIXED
-           ═══════════════════════════════════════ */
         .card-egg {
             position: absolute;
             inset: 0;
@@ -870,7 +972,11 @@
             border-radius: inherit;
         }
 
-        /* Nathaniel: Monster Energy Spill */
+        .card-egg,
+        .card-egg * {
+            pointer-events: none;
+        }
+
         .card-nathaniel .card-egg-a {
             position: absolute;
             top: -100%;
@@ -880,6 +986,7 @@
             background: linear-gradient(to bottom, rgba(149, 214, 0, 0.2) 0%, rgba(149, 214, 0, 0) 100%);
             transition: top 0.6s var(--ease-out-expo);
         }
+
         .card-nathaniel .card-egg-b {
             position: absolute;
             top: -100%;
@@ -892,15 +999,36 @@
             opacity: 0;
             transition: top 0.8s var(--ease-out-expo);
         }
-        .card-nathaniel:hover .card-egg-a { top: 0; }
-        .card-nathaniel:hover .card-egg-b { top: 10%; opacity: 0.5; animation: monsterDrip 1.4s 0.3s infinite ease-in; }
-        @keyframes monsterDrip {
-            0% { top: 10%; opacity: 0; height: 10px; }
-            50% { opacity: 0.4; height: 50px; }
-            100% { top: 80%; opacity: 0; height: 12px; }
+
+        .card-nathaniel:hover .card-egg-a {
+            top: 0;
         }
 
-        /* Kevin: Bok Choy Growth */
+        .card-nathaniel:hover .card-egg-b {
+            top: 10%;
+            opacity: 0.5;
+            animation: monsterDrip 1.4s 0.3s infinite ease-in;
+        }
+
+        @keyframes monsterDrip {
+            0% {
+                top: 10%;
+                opacity: 0;
+                height: 10px;
+            }
+
+            50% {
+                opacity: 0.4;
+                height: 50px;
+            }
+
+            100% {
+                top: 80%;
+                opacity: 0;
+                height: 12px;
+            }
+        }
+
         .card-kevin .card-egg-a,
         .card-kevin .card-egg-b {
             position: absolute;
@@ -911,82 +1039,98 @@
             opacity: 0;
             transition: all 0.7s var(--ease-spring);
         }
-        .card-kevin .card-egg-a { left: 15%; transform: translateY(20px) scale(0.4) rotate(-15deg); }
-        .card-kevin .card-egg-b { right: 15%; left: auto; transform: translateY(20px) scale(0.6) rotate(20deg); transition-delay: 0.1s; }
-        .card-kevin:hover .card-egg-a { opacity: 0.2; transform: translateY(-30px) scale(1.3) rotate(-5deg); }
-        .card-kevin:hover .card-egg-b { opacity: 0.2; transform: translateY(-40px) scale(1.6) rotate(10deg); }
 
-/* Liam: Binary Code - High Contrast Overlay */
-.card-liam .card-egg-a {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    font-family: monospace;
-    font-size: 1.2rem;
-    font-weight: normal;
-    color: #4af626;
-    opacity: 0;
-    line-height: 1.6;
-    text-align: justify;
-    word-break: break-all;
-    overflow: hidden;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0); /* Starts fully transparent */
-    transition: opacity 0.4s ease, background-color 0.4s ease;
-}
+        .card-kevin .card-egg-a {
+            left: 15%;
+            transform: translateY(20px) scale(0.4) rotate(-15deg);
+        }
 
-.card-liam:hover .card-egg-a {
-    opacity: 0.35;                        /* Text is slightly transparent */
-    background-color: rgba(0, 0, 0, 0.88); /* Dark background makes the green pop */
-}
+        .card-kevin .card-egg-b {
+            right: 15%;
+            left: auto;
+            transform: translateY(20px) scale(0.6) rotate(20deg);
+            transition-delay: 0.1s;
+        }
 
-.card-liam .card-egg-scroll {
-    animation: liamBinary 10s linear infinite;
-}
+        .card-kevin:hover .card-egg-a {
+            opacity: 0.2;
+            transform: translateY(-30px) scale(1.3) rotate(-5deg);
+        }
 
-@keyframes liamBinary {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-}
+        .card-kevin:hover .card-egg-b {
+            opacity: 0.2;
+            transform: translateY(-40px) scale(1.6) rotate(10deg);
+        }
 
-        /* Nixon: Nintendo Switches */
-.card-nixon .card-egg-a,
-.card-nixon .card-egg-b {
-    position: absolute;
-    width: 100px;
-    height: 44px;
-    background: url("images/Nintendo Switch.png") no-repeat center / contain;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
-    opacity: 0;
-    transition: all 0.6s var(--ease-spring);
-}
+        .card-liam .card-egg-a {
+            position: absolute;
+            inset: 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #4af626;
+            opacity: 0;
+            line-height: 1.6;
+            text-align: justify;
+            word-break: break-all;
+            overflow: hidden;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0);
+            transition: opacity 0.4s ease, background-color 0.4s ease;
+        }
 
-.card-nixon .card-egg-a {
-    bottom: 10px;
-    left: 10px;
-    transform: translateY(40px) rotate(-30deg) scale(0.5);
-}
+        .card-liam:hover .card-egg-a {
+            opacity: 0.35;
+            background-color: rgba(0, 0, 0, 0.88);
+        }
 
-.card-nixon .card-egg-b {
-    top: 10px;
-    right: 10px;
-    left: auto;
-    transform: translateY(-40px) rotate(45deg) scale(0.5);
-}
+        .card-liam .card-egg-scroll {
+            animation: liamBinary 10s linear infinite;
+        }
 
-.card-nixon:hover .card-egg-a {
-    opacity: 0.3;
-    transform: translateY(-20px) rotate(-15deg) scale(1);
-}
+        @keyframes liamBinary {
+            0% {
+                transform: translateY(0);
+            }
 
-.card-nixon:hover .card-egg-b {
-    opacity: 0.3;
-    transform: translateY(20px) rotate(20deg) scale(1.2);
-}
+            100% {
+                transform: translateY(-50%);
+            }
+        }
 
-        /* Kian: Lifting Dumbbells */
+        .card-nixon .card-egg-a,
+        .card-nixon .card-egg-b {
+            position: absolute;
+            width: 100px;
+            height: 44px;
+            background: url("images/Nintendo Switch.png") no-repeat center / contain;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+            opacity: 0;
+            transition: all 0.6s var(--ease-spring);
+        }
+
+        .card-nixon .card-egg-a {
+            bottom: 10px;
+            left: 10px;
+            transform: translateY(40px) rotate(-30deg) scale(0.5);
+        }
+
+        .card-nixon .card-egg-b {
+            top: 10px;
+            right: 10px;
+            left: auto;
+            transform: translateY(-40px) rotate(45deg) scale(0.5);
+        }
+
+        .card-nixon:hover .card-egg-a {
+            opacity: 0.3;
+            transform: translateY(-20px) rotate(-15deg) scale(1);
+        }
+
+        .card-nixon:hover .card-egg-b {
+            opacity: 0.3;
+            transform: translateY(20px) rotate(20deg) scale(1.2);
+        }
+
         .card-kian .card-egg-a {
             position: absolute;
             top: 30%;
@@ -998,10 +1142,22 @@
             transform: translateY(30px) rotate(0deg);
             transition: opacity 0.4s var(--ease-out-expo);
         }
-        .card-kian:hover .card-egg-a { opacity: 0.12; animation: kianLift 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
-        @keyframes kianLift { 0% { transform: translateY(25px) rotate(-10deg); } 100% { transform: translateY(-25px) rotate(10deg); } }
 
-        /* Conner: Juices Flowing */
+        .card-kian:hover .card-egg-a {
+            opacity: 0.12;
+            animation: kianLift 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        }
+
+        @keyframes kianLift {
+            0% {
+                transform: translateY(25px) rotate(-10deg);
+            }
+
+            100% {
+                transform: translateY(-25px) rotate(10deg);
+            }
+        }
+
         .card-conner .card-egg-a,
         .card-conner .card-egg-b {
             position: absolute;
@@ -1013,16 +1169,42 @@
             transition: top 1s var(--ease-out-expo), opacity 0.5s;
             opacity: 0;
         }
-        .card-conner .card-egg-a { background: rgba(240, 160, 48, 0.1); }
-        .card-conner .card-egg-b { background: rgba(226, 85, 53, 0.08); border-radius: 45%; transition-delay: 0.1s; }
-        .card-conner:hover .card-egg-a { top: 40%; opacity: 1; animation: connerJuice 6s linear infinite; }
-        .card-conner:hover .card-egg-b { top: 50%; opacity: 1; animation: connerJuice 4s linear infinite reverse; }
-        @keyframes connerJuice { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* ═══════════════════════════════════════
-           ROBOT
-           ═══════════════════════════════════════ */
-        .robot-section { text-align: center }
+        .card-conner .card-egg-a {
+            background: rgba(240, 160, 48, 0.1);
+        }
+
+        .card-conner .card-egg-b {
+            background: rgba(226, 85, 53, 0.08);
+            border-radius: 45%;
+            transition-delay: 0.1s;
+        }
+
+        .card-conner:hover .card-egg-a {
+            top: 40%;
+            opacity: 1;
+            animation: connerJuice 6s linear infinite;
+        }
+
+        .card-conner:hover .card-egg-b {
+            top: 50%;
+            opacity: 1;
+            animation: connerJuice 4s linear infinite reverse;
+        }
+
+        @keyframes connerJuice {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .robot-section {
+            text-align: center;
+        }
 
         .robot-frame {
             max-width: 500px;
@@ -1059,7 +1241,9 @@
             transition: transform .5s var(--ease-out-expo);
         }
 
-        .robot-frame:hover img { transform: scale(1.04) }
+        .robot-frame:hover img {
+            transform: scale(1.04);
+        }
 
         .robot-desc {
             max-width: 700px;
@@ -1084,22 +1268,26 @@
             text-shadow: 0 0 28px rgba(240, 160, 48, .4);
         }
 
-        /* ═══════════════════════════════════════
-           ACHIEVEMENTS
-           ═══════════════════════════════════════ */
         .achievement-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 28px;
+            align-items: stretch;
         }
 
         .achievement-card {
             padding: 44px 30px;
             text-align: center;
             border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
         }
 
-        .achievement-card:hover { transform: translateY(-8px) }
+        .achievement-card:hover {
+            transform: translateY(-8px);
+        }
 
         .achievement-icon {
             width: 68px;
@@ -1116,8 +1304,15 @@
         }
 
         @keyframes icon-breathe {
-            0%, 100% { transform: scale(1) }
-            50% { transform: scale(1.04) }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
         }
 
         .achievement-card:hover .achievement-icon {
@@ -1145,17 +1340,17 @@
             transition: color .3s;
         }
 
-        .achievement-card:hover h3 { color: var(--gold) }
+        .achievement-card:hover h3 {
+            color: var(--gold);
+        }
 
         .achievement-card p {
             color: var(--text-secondary);
             font-size: .92rem;
             line-height: 1.6;
+            margin-top: auto;
         }
 
-        /* ═══════════════════════════════════════
-           TIMELINE
-           ═══════════════════════════════════════ */
         .timeline-container {
             position: relative;
             max-width: 900px;
@@ -1169,7 +1364,8 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(180deg, transparent,
+            background: linear-gradient(180deg,
+                    transparent,
                     rgba(240, 160, 48, .25) 10%,
                     rgba(208, 112, 64, .25) 50%,
                     rgba(226, 85, 53, .2) 90%,
@@ -1227,8 +1423,17 @@
         }
 
         @keyframes ring-pulse {
-            0%, 100% { transform: scale(1); opacity: .6 }
-            50% { transform: scale(1.8); opacity: 0 }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: .6;
+            }
+
+            50% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
         }
 
         .timeline-date {
@@ -1254,9 +1459,6 @@
             color: var(--text-secondary);
         }
 
-        /* ═══════════════════════════════════════
-           FOOTER
-           ═══════════════════════════════════════ */
         footer {
             position: relative;
             z-index: 2;
@@ -1311,9 +1513,6 @@
             color: var(--text-dim);
         }
 
-        /* ═══════════════════════════════════════
-           SCROLL REVEAL
-           ═══════════════════════════════════════ */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
@@ -1354,14 +1553,22 @@
             transform: scale(1);
         }
 
-        .stagger-1 { transition-delay: .1s }
-        .stagger-2 { transition-delay: .2s }
-        .stagger-3 { transition-delay: .3s }
-        .stagger-4 { transition-delay: .4s }
+        .stagger-1 {
+            transition-delay: .1s;
+        }
 
-        /* ═══════════════════════════════════════
-           SCROLL INDICATOR
-           ═══════════════════════════════════════ */
+        .stagger-2 {
+            transition-delay: .2s;
+        }
+
+        .stagger-3 {
+            transition-delay: .3s;
+        }
+
+        .stagger-4 {
+            transition-delay: .4s;
+        }
+
         .scroll-indicator {
             position: fixed;
             bottom: 18px;
@@ -1386,9 +1593,6 @@
             border-color: rgba(240, 160, 48, .15);
         }
 
-        /* ═══════════════════════════════════════
-           BACK TO TOP
-           ═══════════════════════════════════════ */
         .back-to-top {
             position: fixed;
             bottom: 18px;
@@ -1426,9 +1630,6 @@
             box-shadow: 0 0 25px rgba(240, 160, 48, .1);
         }
 
-        /* ═══════════════════════════════════════
-           MOBILE
-           ═══════════════════════════════════════ */
         .mobile-toggle {
             display: none;
             background: none;
@@ -1441,7 +1642,9 @@
             transition: background .3s;
         }
 
-        .mobile-toggle:hover { background: rgba(255, 190, 130, .08) }
+        .mobile-toggle:hover {
+            background: rgba(255, 190, 130, .08);
+        }
 
         .mobile-menu {
             display: none;
@@ -1457,9 +1660,13 @@
             border-bottom: 1px solid rgba(255, 190, 130, .08);
             transform: translateY(-100%);
             transition: transform .5s var(--ease-out-expo);
+            max-height: 100vh;
+            overflow-y: auto;
         }
 
-        .mobile-menu.open { transform: translateY(0) }
+        .mobile-menu.open {
+            transform: translateY(0);
+        }
 
         .mobile-menu a {
             display: block;
@@ -1477,91 +1684,142 @@
             padding-left: 8px;
         }
 
-        /* ═══════════════════════════════════════
-           REDUCED MOTION
-           ═══════════════════════════════════════ */
-        @media(prefers-reduced-motion:reduce) {
-            *, *::before, *::after {
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
                 animation-duration: .01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: .01ms !important;
             }
-            .blob { animation: none !important }
-            .reveal, .reveal-left, .reveal-right, .reveal-scale {
+
+            .blob {
+                animation: none !important;
+            }
+
+            .reveal,
+            .reveal-left,
+            .reveal-right,
+            .reveal-scale {
                 opacity: 1 !important;
                 transform: none !important;
             }
         }
 
-        /* ═══════════════════════════════════════
-           RESPONSIVE
-           ═══════════════════════════════════════ */
-        @media(max-width:768px) {
-            nav { top: 10px; padding: 9px 18px; border-radius: var(--radius-sm) }
-            .nav-divider { display: none }
-            .nav-links { display: none }
-            .mobile-toggle { display: block }
-            .mobile-menu { display: block }
-            .hero { padding: 100px 20px 60px; min-height: 88vh }
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                padding: 9px 18px;
+                border-radius: var(--radius-sm);
+            }
+
+            .nav-divider {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+                min-height: 88vh;
+            }
+
             .hero-title {
                 font-size: clamp(2.2rem, 10vw, 3.5rem);
             }
-            .team-grid { grid-template-columns: 1fr }
-            .achievement-grid { grid-template-columns: 1fr }
+
+            .team-grid,
+            .achievement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-card {
+                padding: 32px 22px 28px;
+            }
+
             .timeline-item:nth-child(odd),
             .timeline-item:nth-child(even) {
                 padding-left: 44px;
                 padding-right: 0;
                 justify-content: flex-start;
             }
-            .timeline-line { left: 14px }
-            .timeline-dot { left: 14px }
-            .about-text { padding: 26px 22px }
-            .robot-desc { padding: 26px 22px }
-            .footer-glass { padding: 32px 22px }
-            section { padding: 56px 0 }
-            .scroll-indicator { font-size: .6rem; padding: 5px 10px }
+
+            .timeline-line,
+            .timeline-dot {
+                left: 14px;
+            }
+
+            .about-text,
+            .robot-desc,
+            .footer-glass {
+                padding: 26px 22px;
+            }
+
+            section {
+                padding: 56px 0;
+            }
+
+            .scroll-indicator {
+                font-size: .6rem;
+                padding: 5px 10px;
+            }
         }
 
-        @media(max-width:480px) {
-            .hero-title { font-size: clamp(1.8rem, 12vw, 2.6rem) }
-            .hero-title .word-wrap { margin: 0 0.08em }
-            .card-photo { width: 120px; height: 120px }
-            .team-grid { grid-template-columns: 1fr }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: clamp(1.8rem, 12vw, 2.6rem);
+            }
+
+            .hero-title .word-wrap {
+                margin: 0 0.08em;
+            }
+
+            .card-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
-
-    <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="glass-loader"></div>
         <div class="loader-text">Loading</div>
     </div>
 
-    <!-- Background -->
-    <div class="bg-blobs">
+    <div class="bg-blobs" aria-hidden="true">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
         <div class="blob blob-4"></div>
     </div>
 
-    <div class="vignette"></div>
-    <div class="noise-overlay"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+    <div id="sparkLayer" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9999"></div>
 
-    <!-- Cursor Glow -->
-    <div class="cursor-glow" id="cursorGlow"></div>
-
-    <!-- Click Spark Layer -->
-    <div id="sparkLayer" style="position:fixed;inset:0;pointer-events:none;z-index:9999"></div>
-
-    <!-- Navigation -->
     <nav id="mainNav">
         <div class="nav-inner">
             <a href="#home" class="logo">TIS Phantom Shadow</a>
             <div class="nav-divider"></div>
+
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -1570,13 +1828,13 @@
                 <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#timeline">Timeline</a></li>
             </ul>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="#home">Home</a>
         <a href="#about">About</a>
@@ -1586,50 +1844,48 @@
         <a href="#timeline">Timeline</a>
     </div>
 
-    <!-- Back to Top -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- Auto-Scroll Indicator -->
-    <div class="scroll-indicator active" id="scrollIndicator">● Auto-scroll &nbsp;|&nbsp; Press E to toggle</div>
+    <div class="scroll-indicator active" id="scrollIndicator">● Auto-scroll | Press E to toggle</div>
 
-    <!-- Main Content -->
     <div class="main-content">
-
-        <!-- HERO -->
         <section class="hero" id="home">
             <div class="hero-badge" id="heroBadge">
                 <span class="dot"></span>
                 FLL Robotics Team 2026
             </div>
+
             <h1 class="hero-title" id="heroTitle">TIS Phantom Shadow</h1>
-            <p class="hero-tagline">"2025 Tested Us, 2026 Defines Us"</p>
+            <p class="hero-tagline">2025 Tested Us, 2026 Defines Us</p>
             <div class="hero-divider"></div>
             <p class="hero-values">
                 Innovation <span class="sep">◆</span> Excellence <span class="sep">◆</span> Teamwork
             </p>
+
             <div class="hero-scroll-hint">
                 <span>Scroll</span>
                 <div class="scroll-line"></div>
             </div>
         </section>
 
-        <!-- ABOUT -->
         <section id="about">
             <div class="section-header reveal">
                 <span class="section-label">Who We Are</span>
                 <h2 class="section-title">About Us</h2>
             </div>
+
             <div class="about-content glass glass-accent reveal stagger-1">
                 <span class="glass-shimmer"></span>
                 <span class="glass-highlight-bar"></span>
                 <span class="about-quote-mark" aria-hidden="true">&ldquo;</span>
-                <p class="about-text">TIS Phantom Shadow had a demanding and unforgettable 2025 season, earning the opportunity to compete at both Regionals and Nationals through months of hard work, innovation, and teamwork. While reaching these competitions was a major achievement, the journey was far from easy. At both Regionals and Nationals, many failures occurred — robots didn't always perform as planned, pressure was high, and unexpected problems arose at critical moments. These setbacks were frustrating and challenging, but they pushed the team to think deeper, adapt faster, and support one another through tough situations. Rather than seeing these moments as defeats, TIS Phantom Shadow chose to view them as valuable lessons. The experiences from 2025 highlighted areas for improvement in preparation, strategy, and execution. With renewed motivation and a clearer vision, TIS Phantom Shadow have made the decision to return in 2026 stronger than ever, determined to learn from the past, refine their skills, and strive for greater success together.</p>
+                <p class="about-text">
+                    TIS Phantom Shadow had a demanding and unforgettable 2025 season, earning the opportunity to compete at both Regionals and Nationals through months of hard work, innovation, and teamwork. Reaching those competitions was a major achievement, but the journey was far from easy. At both events, the team faced setbacks — the robot did not always perform as planned, the pressure was high, and unexpected problems arose at critical moments. These challenges were frustrating, but they pushed the team to think deeper, adapt faster, and support one another through difficult situations. Rather than viewing those moments as defeats, TIS Phantom Shadow chose to treat them as valuable lessons. The 2025 season revealed important areas for improvement in preparation, strategy, and execution. With renewed motivation and a clearer vision, TIS Phantom Shadow has decided to return in 2026 stronger than ever, ready to learn from the past, sharpen their skills, and strive for greater success together.
+                </p>
             </div>
         </section>
 
-        <!-- TEAM -->
         <section id="team">
             <div class="section-header reveal">
                 <span class="section-label">The Squad</span>
@@ -1641,102 +1897,133 @@
                 <div class="team-card glass reveal stagger-1 card-nathaniel">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-                    <div class="card-egg">
+
+                    <div class="card-egg" aria-hidden="true">
                         <div class="card-egg-a"></div>
                         <div class="card-egg-b"></div>
                     </div>
+
                     <div class="card-photo">
                         <div class="card-photo-ring"></div>
                         <img src="images/Nathaniel.png" alt="Nathaniel Person" loading="lazy">
                     </div>
+
                     <h3 class="card-name">Nathaniel Person</h3>
                     <p class="card-role">Lead Builder · Lead Researcher</p>
-                    <p class="card-bio">My name is Nathaniel, and I am a builder, innovation team member, and researcher for the TIS Phantom Shadow FLL team. I help design and build the robot while also researching ideas and contributing to our innovation project. I enjoy learning new things and working with my team to turn ideas into real solutions.</p>
+                    <p class="card-bio">
+                        My name is Nathaniel, and I am a builder, innovation team member, and researcher for the TIS Phantom Shadow FLL team. I help design and build the robot while also researching ideas and contributing to our innovation project. I enjoy learning new things and working with my team to turn ideas into real solutions.
+                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-2 card-kevin">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-                    <div class="card-egg">
+
+                    <div class="card-egg" aria-hidden="true">
                         <div class="card-egg-a"></div>
                         <div class="card-egg-b"></div>
                     </div>
+
                     <div class="card-photo">
                         <div class="card-photo-ring"></div>
                         <img src="images/Kevin.png" alt="Kevin Lo" loading="lazy">
                     </div>
+
                     <h3 class="card-name">Kevin Lo</h3>
-                    <p class="card-role">Team Captain · Co-Coder · Lead Innovation</p>
-                    <p class="card-bio">My name is Kevin, and I am the captain of the TIS Phantom Shadow FLL team. I work as a co-coder and co-builder, helping to design, build, and program our robot. I enjoy leading my team, solving challenges together, and pushing our robot to perform at its best.</p>
+                    <p class="card-role">Team Captain · Co-Coder · Co-Builder · Lead Innovation</p>
+                    <p class="card-bio">
+                        My name is Kevin, and I am the captain of the TIS Phantom Shadow FLL team. I work as a co-coder and co-builder, helping to design, build, and program our robot. I enjoy leading my team, solving challenges together, and pushing our robot to perform at its best.
+                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-3 card-liam">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-                    <div class="card-egg">
+
+                    <div class="card-egg" aria-hidden="true">
                         <div class="card-egg-a">
-                            <div class="card-egg-scroll">01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001</div>
+                            <div class="card-egg-scroll">
+                                01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001
+                            </div>
                         </div>
                     </div>
+
                     <div class="card-photo">
                         <div class="card-photo-ring"></div>
                         <img src="images/Liam.png" alt="Liam Watson" loading="lazy">
                     </div>
+
                     <h3 class="card-name">Liam Watson</h3>
-                    <p class="card-role">Lead Coder · Co-Innovation · Co-Researcher</p>
-                    <p class="card-bio">My name is Liam, and I am the co-captain of the TIS Phantom Shadow FLL team. I work as a coder and co-innovation lead, helping to program our robot and develop creative solutions for our innovation project. I enjoy collaborating with my team and contributing ideas that help us succeed.</p>
+                    <p class="card-role">Co-Captain · Lead Coder · Co-Innovation · Co-Researcher</p>
+                    <p class="card-bio">
+                        My name is Liam, and I am the co-captain of the TIS Phantom Shadow FLL team. I work as a coder and co-innovation lead, helping to program our robot and develop creative solutions for our innovation project. I enjoy collaborating with my team and contributing ideas that help us succeed.
+                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-4 card-nixon">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-                    <div class="card-egg">
+
+                    <div class="card-egg" aria-hidden="true">
                         <div class="card-egg-a"></div>
                         <div class="card-egg-b"></div>
                     </div>
+
                     <div class="card-photo">
                         <div class="card-photo-ring"></div>
                         <img src="images/Nixon.png" alt="Nixon" loading="lazy">
                     </div>
+
                     <h3 class="card-name">Nixon</h3>
                     <p class="card-role">Co-Builder · Innovation Team</p>
-                    <p class="card-bio">My name is Nixon, and I am a co-builder and innovation team member for the TIS Phantom Shadow FLL team. I help construct the robot attachments and brainstorm creative ideas for our project. I enjoy working hands-on and problem-solving with my teammates.</p>
+                    <p class="card-bio">
+                        My name is Nixon, and I am a co-builder and innovation team member for the TIS Phantom Shadow FLL team. I help construct the robot attachments and brainstorm creative ideas for our project. I enjoy working hands-on and problem-solving with my teammates.
+                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-1 card-kian">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-                    <div class="card-egg">
+
+                    <div class="card-egg" aria-hidden="true">
                         <div class="card-egg-a"></div>
                     </div>
+
                     <div class="card-photo">
                         <div class="card-photo-ring"></div>
                         <img src="images/Kian.png" alt="Kian" loading="lazy">
                     </div>
+
                     <h3 class="card-name">Kian</h3>
                     <p class="card-role">Co-Coder · Mission Strategist</p>
-                    <p class="card-bio">My name is Kian, and I am a co-coder and mission strategist for the TIS Phantom Shadow FLL team. I focus on programming the robot for consistent mission runs and optimizing our competition strategy. I love the challenge of making our robot perform autonomously.</p>
+                    <p class="card-bio">
+                        My name is Kian, and I am a co-coder and mission strategist for the TIS Phantom Shadow FLL team. I focus on programming the robot for consistent mission runs and optimizing our competition strategy. I love the challenge of making our robot perform autonomously.
+                    </p>
                 </div>
 
                 <div class="team-card glass reveal stagger-2 card-conner">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
-                    <div class="card-egg">
+
+                    <div class="card-egg" aria-hidden="true">
                         <div class="card-egg-a"></div>
                         <div class="card-egg-b"></div>
                     </div>
+
                     <div class="card-photo">
                         <div class="card-photo-ring"></div>
                         <img src="images/Conner.png" alt="Conner" loading="lazy">
                     </div>
+
                     <h3 class="card-name">Conner</h3>
                     <p class="card-role">Researcher · Co-Builder</p>
-                    <p class="card-bio">My name is Conner, and I am a researcher and co-builder for the TIS Phantom Shadow FLL team. I dive deep into our innovation project research and assist with assembling our robot. I am passionate about learning new concepts and bringing our team's ideas to life.</p>
+                    <p class="card-bio">
+                        My name is Conner, and I am a researcher and co-builder for the TIS Phantom Shadow FLL team. I dive deep into our innovation project research and assist with assembling our robot. I am passionate about learning new concepts and bringing our team's ideas to life.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- ROBOT -->
         <section id="robot" class="robot-section">
             <div class="section-header reveal">
                 <span class="section-label">Engineering</span>
@@ -1751,11 +2038,12 @@
             <div class="robot-desc glass glass-accent reveal stagger-2">
                 <span class="glass-shimmer"></span>
                 <span class="glass-highlight-bar"></span>
-                <p>Our robot, <span class="robot-name">"Botmobile"</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Botmobile can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds.</p>
+                <p>
+                    Our robot, <span class="robot-name">Botmobile</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Botmobile can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds.
+                </p>
             </div>
         </section>
 
-        <!-- ACHIEVEMENTS -->
         <section id="achievements">
             <div class="section-header reveal">
                 <span class="section-label">Milestones</span>
@@ -1766,36 +2054,41 @@
                 <div class="achievement-card glass reveal stagger-1">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
+
                     <div class="achievement-icon">
                         <i class="fas fa-trophy"></i>
                     </div>
-                    <h3>Nationals Achiever</h3>
-                    <p>We made it to nationals — competing at the highest level in the country.</p>
+
+                    <h3>National Qualification</h3>
+                    <p>We reached the national stage and competed against top teams from across the country.</p>
                 </div>
 
                 <div class="achievement-card glass reveal stagger-2">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
+
                     <div class="achievement-icon">
                         <i class="fas fa-lightbulb"></i>
                     </div>
-                    <h3>Innovation Creativity</h3>
-                    <p>Recognized for outstanding problem-solving approach and creative solutions.</p>
+
+                    <h3>Innovation Excellence</h3>
+                    <p>Recognized for creative thinking, practical problem-solving, and strong project development.</p>
                 </div>
 
                 <div class="achievement-card glass reveal stagger-3">
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
+
                     <div class="achievement-icon">
                         <i class="fas fa-users"></i>
                     </div>
+
                     <h3>Teamwork Excellence</h3>
-                    <p>Praised for exceptional collaboration, communication, and team spirit.</p>
+                    <p>Praised for collaboration, communication, resilience, and team spirit throughout the season.</p>
                 </div>
             </div>
         </section>
 
-        <!-- TIMELINE -->
         <section id="timeline">
             <div class="section-header reveal">
                 <span class="section-label">Our Story</span>
@@ -1814,7 +2107,7 @@
                         <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">March 2025</div>
                         <div class="timeline-title">Team Formation</div>
-                        <div class="timeline-desc">The TIS Phantom Shadow came together with a shared passion for robotics and innovation.</div>
+                        <div class="timeline-desc">TIS Phantom Shadow came together with a shared passion for robotics, creativity, and competition.</div>
                     </div>
                 </div>
 
@@ -1827,7 +2120,7 @@
                         <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">September 2025</div>
                         <div class="timeline-title">First Competition</div>
-                        <div class="timeline-desc">We competed in our first regional tournament, gaining valuable experience and feedback.</div>
+                        <div class="timeline-desc">We entered our first regional tournament and gained valuable experience, feedback, and confidence.</div>
                     </div>
                 </div>
 
@@ -1840,7 +2133,7 @@
                         <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">November 2025</div>
                         <div class="timeline-title">Regionals Success</div>
-                        <div class="timeline-desc">Our team placed in the top 27 at Regionals, qualifying us for the National Championship! Achieved max points of 140.</div>
+                        <div class="timeline-desc">Our team placed in the top 27 at Regionals, qualified for the National Championship, and achieved a high score of 140 points.</div>
                     </div>
                 </div>
 
@@ -1853,7 +2146,7 @@
                         <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">December 2025</div>
                         <div class="timeline-title">National Championship</div>
-                        <div class="timeline-desc">Proud of our achievements — achieved max points of 230, a 90-point increase from Regionals!</div>
+                        <div class="timeline-desc">We competed at Nationals and raised our high score to 230 points, a 90-point improvement from Regionals.</div>
                     </div>
                 </div>
 
@@ -1866,21 +2159,19 @@
                         <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">January 2026</div>
                         <div class="timeline-title">2026 Comeback</div>
-                        <div class="timeline-desc">Preparing for 2026 competitions with our new bot, BOT MOBILE. We are excited to see what we can accomplish this year.</div>
+                        <div class="timeline-desc">We are preparing for the 2026 season with our new robot, Botmobile, and a stronger vision for what comes next.</div>
                     </div>
                 </div>
             </div>
         </section>
-
     </div>
 
-    <!-- FOOTER -->
     <footer id="contact">
         <div class="footer-glass glass reveal">
             <span class="glass-shimmer"></span>
             <span class="glass-highlight-bar"></span>
             <div class="footer-logo">TIS PHANTOM SHADOW</div>
-            <p class="footer-tagline">First Lego League Team 2026</p>
+            <p class="footer-tagline">FIRST LEGO League Team 2026</p>
             <p class="footer-motto">2025 Tested Us · 2026 Defines Us</p>
             <div class="footer-divider"></div>
             <p class="copyright">&copy; 2026 TIS Phantom Shadow. All rights reserved.</p>
@@ -1891,287 +2182,400 @@
         (() => {
             'use strict';
 
-            /* ─── LOADING SCREEN ─── */
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const smoothBehavior = reduceMotion ? 'auto' : 'smooth';
+
             window.addEventListener('load', () => {
-                const ls = document.getElementById('loading-screen');
-                if (!ls) return;
+                const loadingScreen = document.getElementById('loading-screen');
+                if (!loadingScreen) return;
+
                 setTimeout(() => {
-                    ls.classList.add('hidden');
-                    setTimeout(() => {
-                        if (ls.parentNode) ls.parentNode.removeChild(ls);
-                    }, 700);
-                }, 500);
+                    loadingScreen.classList.add('hidden');
+                    setTimeout(() => loadingScreen.remove(), 700);
+                }, 400);
             });
 
-            /* ─── HERO TITLE CHAR SPLIT — FIXED ─── */
             const heroTitle = document.getElementById('heroTitle');
             let maxCharDelay = 0;
+
             if (heroTitle) {
                 const text = heroTitle.textContent.trim();
                 const words = text.split(/\s+/);
+
                 heroTitle.textContent = '';
-                let ci = 0;
+                heroTitle.setAttribute('aria-label', text);
+                heroTitle.setAttribute('role', 'text');
+
+                let charIndex = 0;
+
                 words.forEach((word) => {
-                    const s = document.createElement('span');
-                    const wl = word.toLowerCase();
-                    s.className = 'word-wrap';
-                    if (wl === 'phantom') s.classList.add('word-phantom');
-                    else if (wl === 'shadow') s.classList.add('word-shadow');
+                    const wordWrap = document.createElement('span');
+                    const lower = word.toLowerCase();
 
-                    word.split('').forEach((ch) => {
-                        const c = document.createElement('span');
-                        c.className = 'char';
-                        c.textContent = ch;
-                        const delay = 0.6 + ci * 0.04;
-                        c.style.animationDelay = delay + 's';
+                    wordWrap.className = 'word-wrap';
+                    if (lower === 'phantom') wordWrap.classList.add('word-phantom');
+                    if (lower === 'shadow') wordWrap.classList.add('word-shadow');
+
+                    [...word].forEach((char) => {
+                        const span = document.createElement('span');
+                        const delay = 0.6 + charIndex * 0.04;
+
+                        span.className = 'char';
+                        span.textContent = char;
+                        span.style.animationDelay = `${delay}s`;
+                        span.setAttribute('aria-hidden', 'true');
+
                         maxCharDelay = Math.max(maxCharDelay, delay);
-                        s.appendChild(c);
-                        ci++;
+                        wordWrap.appendChild(span);
+                        charIndex += 1;
                     });
-                    heroTitle.appendChild(s);
+
+                    heroTitle.appendChild(wordWrap);
                 });
 
-                /* After charIn completes, add gradShift to gradient chars */
-                const charInDuration = 700;
-                const totalCharInMs = (maxCharDelay * 1000) + charInDuration + 200;
                 setTimeout(() => {
-                    const gradChars = heroTitle.querySelectorAll('.word-phantom .char, .word-shadow .char');
-                    gradChars.forEach((c) => {
-                        c.classList.add('anim-ready');
-                    });
-                }, totalCharInMs);
+                    heroTitle
+                        .querySelectorAll('.word-phantom .char, .word-shadow .char')
+                        .forEach((char) => char.classList.add('anim-ready'));
+                }, maxCharDelay * 1000 + 900);
             }
 
-            /* ─── HERO BADGE: switch from fadeUp to micro-float ─── */
             const heroBadge = document.getElementById('heroBadge');
-            if (heroBadge) {
-                setTimeout(() => {
-                    heroBadge.classList.add('float-active');
-                }, 1400);
+            if (heroBadge && !reduceMotion) {
+                setTimeout(() => heroBadge.classList.add('float-active'), 1400);
             }
 
-            /* ─── CURSOR GLOW ─── */
             const glow = document.getElementById('cursorGlow');
-            if (glow) {
-                let mx = 0, my = 0, gx = 0, gy = 0;
-                document.addEventListener('mousemove', (e) => {
-                    mx = e.clientX;
-                    my = e.clientY;
-                }, { passive: true });
+            const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
 
-                function tickGlow() {
-                    gx += (mx - gx) * 0.15;
-                    gy += (my - gy) * 0.15;
-                    glow.style.transform = 'translate3d(' + (gx - 175) + 'px,' + (gy - 175) + 'px,0)';
-                    requestAnimationFrame(tickGlow);
-                }
-                tickGlow();
+            if (glow && !coarsePointer && !reduceMotion) {
+                let targetX = window.innerWidth / 2;
+                let targetY = window.innerHeight / 2;
+                let currentX = targetX;
+                let currentY = targetY;
+
+                document.addEventListener('mousemove', (event) => {
+                    targetX = event.clientX;
+                    targetY = event.clientY;
+                }, {
+                    passive: true
+                });
+
+                const animateGlow = () => {
+                    currentX += (targetX - currentX) * 0.15;
+                    currentY += (targetY - currentY) * 0.15;
+                    glow.style.transform = `translate3d(${currentX - 175}px, ${currentY - 175}px, 0)`;
+                    requestAnimationFrame(animateGlow);
+                };
+
+                requestAnimationFrame(animateGlow);
+            } else if (glow) {
+                glow.remove();
             }
 
-            /* ─── SCROLL REVEAL ─── */
-            const revEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
-            if (revEls.length > 0) {
-                const revObs = new IntersectionObserver((entries) => {
-                    entries.forEach((e) => {
-                        if (e.isIntersecting) {
-                            e.target.classList.add('revealed');
-                        }
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+            if (reduceMotion) {
+                revealElements.forEach((element) => element.classList.add('revealed'));
+            } else if (revealElements.length) {
+                const revealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
                     });
-                }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-                revEls.forEach((el) => revObs.observe(el));
+                }, {
+                    threshold: 0.12,
+                    rootMargin: '0px 0px -40px 0px'
+                });
+
+                revealElements.forEach((element) => revealObserver.observe(element));
             }
 
-            /* ─── NAV ACTIVE STATE ─── */
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            let navTick = false;
+            const sections = [...document.querySelectorAll('section[id]')];
+            const navLinks = [...document.querySelectorAll('.nav-links a')];
 
-            function updateNav() {
-                const sy = window.scrollY + 130;
-                let current = '';
-                sections.forEach((s) => {
-                    if (sy >= s.offsetTop && sy < s.offsetTop + s.clientHeight) current = s.id;
+            const updateNav = () => {
+                const marker = window.scrollY + 140;
+                let current = sections[0]?.id || '';
+
+                sections.forEach((section) => {
+                    if (marker >= section.offsetTop) current = section.id;
                 });
-                navLinks.forEach((a) => {
-                    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+
+                navLinks.forEach((link) => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
                 });
-                navTick = false;
-            }
-            window.addEventListener('scroll', () => {
-                if (!navTick) { navTick = true; requestAnimationFrame(updateNav); }
-            }, { passive: true });
+            };
+
+            let navFrame = 0;
+            const requestNavUpdate = () => {
+                if (navFrame) return;
+                navFrame = requestAnimationFrame(() => {
+                    updateNav();
+                    navFrame = 0;
+                });
+            };
+
+            window.addEventListener('scroll', requestNavUpdate, {
+                passive: true
+            });
+            window.addEventListener('resize', requestNavUpdate, {
+                passive: true
+            });
             updateNav();
 
-            /* ─── BACK TO TOP ─── */
-            const btt = document.getElementById('backToTop');
-            if (btt) {
-                window.addEventListener('scroll', () => {
-                    btt.classList.toggle('visible', window.scrollY > 500);
-                }, { passive: true });
-                btt.addEventListener('click', () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+            const backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                const updateBackToTop = () => {
+                    backToTop.classList.toggle('visible', window.scrollY > 500);
+                };
+
+                window.addEventListener('scroll', updateBackToTop, {
+                    passive: true
+                });
+                updateBackToTop();
+
+                backToTop.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: smoothBehavior
+                    });
                 });
             }
 
-            /* ─── MOBILE MENU ─── */
             const mobileToggle = document.getElementById('mobileToggle');
             const mobileMenu = document.getElementById('mobileMenu');
+
+            const setMenuState = (open) => {
+                if (!mobileToggle || !mobileMenu) return;
+
+                mobileMenu.classList.toggle('open', open);
+                mobileToggle.setAttribute('aria-expanded', String(open));
+                document.body.classList.toggle('menu-open', open);
+
+                const icon = mobileToggle.querySelector('i');
+                if (icon) {
+                    icon.className = open ? 'fas fa-times' : 'fas fa-bars';
+                }
+            };
+
             if (mobileToggle && mobileMenu) {
                 mobileToggle.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('open');
-                    const icon = mobileToggle.querySelector('i');
-                    if (icon) {
-                        if (mobileMenu.classList.contains('open')) {
-                            icon.className = 'fas fa-times';
-                        } else {
-                            icon.className = 'fas fa-bars';
-                        }
-                    }
+                    setMenuState(!mobileMenu.classList.contains('open'));
+                });
+
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'Escape') setMenuState(false);
+                });
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) setMenuState(false);
+                }, {
+                    passive: true
                 });
             }
 
-            /* ─── SMOOTH NAV SCROLL ─── */
-            document.querySelectorAll('a[href^="#"]').forEach((a) => {
-                a.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const href = a.getAttribute('href');
-                    if (!href || href === '#') return;
-                    const t = document.querySelector(href);
-                    if (!t) return;
-                    const off = t.getBoundingClientRect().top + window.scrollY - 80;
-                    window.scrollTo({ top: off, behavior: 'smooth' });
-                    if (mobileMenu) mobileMenu.classList.remove('open');
-                    if (mobileToggle) {
-                        const icon = mobileToggle.querySelector('i');
-                        if (icon) icon.className = 'fas fa-bars';
-                    }
-                });
-            });
+            let autoDirection = 1;
+            let autoSpeed = 1.25;
+            let autoRunning = !reduceMotion;
+            let pauseUntil = 0;
 
-            /* ─── AUTO-SCROLL ─── */
-            let autoDir = 1, autoSpeed = 3.5, autoRunning = true;
-            let userScrollTimeout = null;
-            let userScrolling = false;
             const indicator = document.getElementById('scrollIndicator');
 
-            function autoScroll() {
-                if (autoRunning && !userScrolling) {
-                    window.scrollBy(0, autoSpeed * autoDir);
-                    const top = window.scrollY;
-                    const maxS = document.documentElement.scrollHeight - window.innerHeight;
-                    if (top >= maxS - 2) autoDir = -1;
-                    if (top <= 1) autoDir = 1;
-                }
-                requestAnimationFrame(autoScroll);
-            }
-            autoScroll();
+            const updateIndicator = () => {
+                if (!indicator) return;
+                indicator.classList.toggle('active', autoRunning);
+                indicator.textContent = autoRunning ?
+                    '● Auto-scroll | Press E to toggle' :
+                    '○ Paused | Press E to toggle';
+            };
 
-            function onUserScroll() {
-                userScrolling = true;
-                clearTimeout(userScrollTimeout);
-                userScrollTimeout = setTimeout(() => { userScrolling = false; }, 2000);
-            }
-            window.addEventListener('wheel', onUserScroll, { passive: true });
-            window.addEventListener('touchmove', onUserScroll, { passive: true });
+            const pauseAutoScroll = (duration = 2200) => {
+                pauseUntil = performance.now() + duration;
+            };
 
-            document.addEventListener('keydown', (e) => {
-                const k = e.key.toLowerCase();
-                if (k === 'e') {
-                    autoRunning = !autoRunning;
-                    if (indicator) {
-                        if (autoRunning) {
-                            indicator.classList.add('active');
-                            indicator.textContent = '● Auto-scroll  |  Press E to toggle';
-                        } else {
-                            indicator.classList.remove('active');
-                            indicator.textContent = '○ Paused  |  Press E to toggle';
-                        }
-                    }
+            const autoScrollLoop = (now) => {
+                const menuOpen = document.body.classList.contains('menu-open');
+
+                if (autoRunning && now > pauseUntil && !menuOpen) {
+                    window.scrollBy(0, autoSpeed * autoDirection);
+
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    if (window.scrollY >= maxScroll - 2) autoDirection = -1;
+                    if (window.scrollY <= 1) autoDirection = 1;
                 }
-                if (e.key === 'ArrowUp') { autoDir = -1; onUserScroll(); }
-                if (e.key === 'ArrowDown') { autoDir = 1; onUserScroll(); }
-                if (e.key === '+' || e.key === '=') autoSpeed = Math.min(7, autoSpeed + 0.35);
-                if (e.key === '-') autoSpeed = Math.max(0.3, autoSpeed - 0.35);
+
+                requestAnimationFrame(autoScrollLoop);
+            };
+
+            updateIndicator();
+            requestAnimationFrame(autoScrollLoop);
+
+            const manualPause = () => pauseAutoScroll();
+
+            window.addEventListener('wheel', manualPause, {
+                passive: true
+            });
+            window.addEventListener('touchstart', manualPause, {
+                passive: true
+            });
+            window.addEventListener('touchmove', manualPause, {
+                passive: true
+            });
+            document.addEventListener('pointerdown', manualPause, {
+                passive: true
             });
 
-            /* ─── CLICK SPARK ─── */
+            document.addEventListener('keydown', (event) => {
+                const key = event.key.toLowerCase();
+
+                if (key === 'e') {
+                    autoRunning = !autoRunning;
+                    if (autoRunning) pauseUntil = 0;
+                    updateIndicator();
+                    return;
+                }
+
+                if (event.key === 'ArrowUp') {
+                    autoDirection = -1;
+                    manualPause();
+                }
+
+                if (event.key === 'ArrowDown') {
+                    autoDirection = 1;
+                    manualPause();
+                }
+
+                if (key === '+' || key === '=') {
+                    autoSpeed = Math.min(7, autoSpeed + 0.35);
+                    manualPause();
+                }
+
+                if (key === '-') {
+                    autoSpeed = Math.max(0.3, autoSpeed - 0.35);
+                    manualPause();
+                }
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    const href = link.getAttribute('href');
+                    if (!href || href === '#') return;
+
+                    const target = document.querySelector(href);
+                    if (!target) return;
+
+                    event.preventDefault();
+                    pauseAutoScroll(3000);
+
+                    const top = target.getBoundingClientRect().top + window.scrollY - 80;
+                    window.scrollTo({
+                        top,
+                        behavior: smoothBehavior
+                    });
+
+                    setMenuState(false);
+                });
+            });
+
             const sparkLayer = document.getElementById('sparkLayer');
-            if (sparkLayer) {
-                const sCanvas = document.createElement('canvas');
-                sCanvas.style.cssText = 'width:100%;height:100%;display:block;pointer-events:none';
-                sparkLayer.appendChild(sCanvas);
-                const sCtx = sCanvas.getContext('2d');
+
+            if (sparkLayer && !reduceMotion) {
+                const canvas = document.createElement('canvas');
+                canvas.style.cssText = 'width:100%;height:100%;display:block;pointer-events:none';
+                sparkLayer.appendChild(canvas);
+
+                const ctx = canvas.getContext('2d');
                 let sparks = [];
 
-                function resizeS() {
-                    const d = window.devicePixelRatio || 1;
-                    sCanvas.width = window.innerWidth * d;
-                    sCanvas.height = window.innerHeight * d;
-                    sCtx.setTransform(d, 0, 0, d, 0, 0);
-                }
-                resizeS();
-                window.addEventListener('resize', resizeS);
+                const resizeCanvas = () => {
+                    const dpr = window.devicePixelRatio || 1;
+                    canvas.width = Math.floor(window.innerWidth * dpr);
+                    canvas.height = Math.floor(window.innerHeight * dpr);
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                };
 
-                function drawSparks(ts) {
-                    sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
-                    sparks = sparks.filter((s) => {
-                        const t = (ts - s.t) / 420;
-                        if (t > 1) return false;
-                        const ease = t * (2 - t);
-                        const dist = ease * 42 * s.sc;
-                        const len = 14 * (1 - ease) * s.sc;
-                        const x1 = s.x + dist * Math.cos(s.a);
-                        const y1 = s.y + dist * Math.sin(s.a);
-                        const x2 = s.x + (dist + len) * Math.cos(s.a);
-                        const y2 = s.y + (dist + len) * Math.sin(s.a);
-                        sCtx.strokeStyle = 'rgba(255,210,170,' + (0.85 * (1 - ease)) + ')';
-                        sCtx.lineWidth = 1.8;
-                        sCtx.lineCap = 'round';
-                        sCtx.beginPath();
-                        sCtx.moveTo(x1, y1);
-                        sCtx.lineTo(x2, y2);
-                        sCtx.stroke();
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas, {
+                    passive: true
+                });
+
+                const drawSparks = (timestamp) => {
+                    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+                    sparks = sparks.filter((spark) => {
+                        const progress = (timestamp - spark.start) / 420;
+                        if (progress > 1) return false;
+
+                        const eased = progress * (2 - progress);
+                        const distance = eased * 42 * spark.scale;
+                        const length = 14 * (1 - eased) * spark.scale;
+
+                        const x1 = spark.x + distance * Math.cos(spark.angle);
+                        const y1 = spark.y + distance * Math.sin(spark.angle);
+                        const x2 = spark.x + (distance + length) * Math.cos(spark.angle);
+                        const y2 = spark.y + (distance + length) * Math.sin(spark.angle);
+
+                        ctx.strokeStyle = `rgba(255,210,170,${0.85 * (1 - eased)})`;
+                        ctx.lineWidth = 1.8;
+                        ctx.lineCap = 'round';
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.stroke();
+
                         return true;
                     });
+
                     requestAnimationFrame(drawSparks);
-                }
+                };
+
                 requestAnimationFrame(drawSparks);
 
-                document.addEventListener('pointerdown', (e) => {
-                    if (e.pointerType === 'mouse' && e.button !== 0) return;
+                document.addEventListener('pointerdown', (event) => {
+                    if (event.pointerType === 'mouse' && event.button !== 0) return;
+
                     const now = performance.now();
                     const count = 10;
-                    for (let i = 0; i < count; i++) {
+
+                    for (let i = 0; i < count; i += 1) {
                         sparks.push({
-                            x: e.clientX,
-                            y: e.clientY,
-                            a: (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4,
-                            t: now,
-                            sc: 0.6 + Math.random() * 0.6
+                            x: event.clientX,
+                            y: event.clientY,
+                            angle: (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4,
+                            start: now,
+                            scale: 0.6 + Math.random() * 0.6
                         });
                     }
-                }, { passive: true });
+                }, {
+                    passive: true
+                });
             }
 
-            /* ─── BLOB PARALLAX ─── */
             const blobs = document.querySelectorAll('.blob');
-            let scrollTick = false;
-            if (blobs.length > 0) {
-                window.addEventListener('scroll', () => {
-                    if (!scrollTick) {
-                        scrollTick = true;
-                        requestAnimationFrame(() => {
-                            const sy = window.scrollY;
-                            blobs.forEach((b, i) => {
-                                const offset = sy * (0.015 + i * 0.012);
-                                b.style.setProperty('--py', offset + 'px');
-                            });
-                            scrollTick = false;
-                        });
-                    }
-                }, { passive: true });
-            }
 
+            if (blobs.length && !reduceMotion) {
+                let blobFrame = 0;
+
+                const updateBlobs = () => {
+                    const scrollY = window.scrollY;
+                    blobs.forEach((blob, index) => {
+                        const offset = scrollY * (0.015 + index * 0.012);
+                        blob.style.setProperty('--py', `${offset}px`);
+                    });
+                    blobFrame = 0;
+                };
+
+                window.addEventListener('scroll', () => {
+                    if (blobFrame) return;
+                    blobFrame = requestAnimationFrame(updateBlobs);
+                }, {
+                    passive: true
+                });
+
+                updateBlobs();
+            }
         })();
     </script>
 </body>
