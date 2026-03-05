@@ -916,7 +916,7 @@
         .card-kevin:hover .card-egg-a { opacity: 0.2; transform: translateY(-30px) scale(1.3) rotate(-5deg); }
         .card-kevin:hover .card-egg-b { opacity: 0.2; transform: translateY(-40px) scale(1.6) rotate(10deg); }
 
-/* Liam: Binary Code - Tech Overlay Version */
+/* Liam: Binary Code - Subtle Tech Overlay */
 .card-liam .card-egg-a {
     position: absolute;
     top: 0;
@@ -925,20 +925,21 @@
     height: 100%;
     font-family: monospace;
     font-size: 1.2rem;
-    color: #4af626;      /* Bright Matrix Green */
-    opacity: 0;          /* Hidden by default */
+    font-weight: normal;       /* Changed from bold: finer lines are easier to see through */
+    color: #4af626;
+    opacity: 0;
     line-height: 1.6;
     text-align: justify;
     word-break: break-all;
     overflow: hidden;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0); /* Background starts transparent */
-    transition: opacity 0.4s, background-color 0.4s; /* Smooth transition for both text and background */
+    background-color: rgba(0, 0, 0, 0); /* Starts transparent */
+    transition: opacity 0.4s, background-color 0.4s;
 }
 
 .card-liam:hover .card-egg-a {
-    opacity: 0.7;                       /* Increased opacity so text is crisp */
-    background-color: rgba(0, 0, 0, 0.85); /* Dark overlay to make green pop */
+    opacity: 0.2;                        /* Low opacity: visible but see-through */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark Gray overlay: helps text pop without hiding card */
 }
 
 .card-liam .card-egg-scroll {
